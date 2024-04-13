@@ -87,15 +87,51 @@ CREATE TABLE User_Job (
     FOREIGN KEY (username, passwrd) REFERENCES User(username, passwrd) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+-- Check if a user exists to send into their account or if it doesnt, then they need to create one    
+DELIMITER $$
+CREATE PROCEDURE IsReturningUser(
+    IN p_username VARCHAR(50),
+    IN p_password VARCHAR(50)
+)
+BEGIN
+	declare output int;
+    if exists ( select 1 from users as u where u.username = p_username and u.passwrd = p_password) then 
+		set output = -1;
+    else
+		signal sqlstate '45000' set message_text = 'This account does not exist. Please go back and create a username and password';
+    end if;
+    return (output);
+    
+END $$
+DELIMITER ;
 
+-- Create a user on the front end means creating a "job seeker" and a "User" on the back end
 DELIMITER $$
 CREATE PROCEDURE AddUser(
     IN p_username VARCHAR(50),
     IN p_password VARCHAR(50),
-    IN p_SSN INT
+    IN SSN int
 )
 BEGIN
-    INSERT INTO User(username, passwrd, SSN)
-    VALUES (p_username, p_password, p_SSN);
+	declare is_existing_user int;
+    call IsReturningUser(p_username, p_password) into is_existing_user;
+    
+	if is_existing_user = -1 then 
+		singnal sqlstate '45000' set message_text = 'User already exists. Try another username and password';
+	else
+		INSERT INTO User(username, passwrd)
+		VALUES (p_username, p_password);
+	end if;
 END $$
 DELIMITER ;
+
+drop trigger if exists attack_after_insert;
+delimiter $$
+create trigger attack_after_insert
+	after insert on attack
+    for each row 
+    begin
+    update township set num_attacks = num_attacks + 1
+    where tid = new.location;
+    end$$
+delimiter ;
