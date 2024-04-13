@@ -3,6 +3,7 @@ create database jobfinder;
 
 use jobfinder;
 
+drop table if exists JobSeeker;
 CREATE TABLE JobSeeker (
     SSN INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -10,6 +11,7 @@ CREATE TABLE JobSeeker (
     experience INT NOT NULL
 );
 
+drop table if exists User;
 CREATE TABLE User (
     username VARCHAR(50),
     passwrd VARCHAR(50),
@@ -19,7 +21,7 @@ CREATE TABLE User (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
+drop table if exists Company;
 CREATE TABLE Company (
     name VARCHAR(100) PRIMARY KEY,
     Industry VARCHAR(100) NOT NULL,
@@ -28,6 +30,7 @@ CREATE TABLE Company (
     Revenue_Growth DECIMAL(5,2) NOT NULL
 );
 
+drop table if exists Job;
 CREATE TABLE Job (
     ID INT PRIMARY KEY,
     job_title VARCHAR(100) NOT NULL,
@@ -40,6 +43,7 @@ CREATE TABLE Job (
 );
 
 -- salary is a weak entity and does not have a primary key 
+drop table if exists Salary;
 CREATE TABLE Salary (
     salary_currency CHAR(3) NOT NULL,
     salary_in_usd DECIMAL(10,2) NOT NULL,
@@ -47,12 +51,14 @@ CREATE TABLE Salary (
     FOREIGN KEY (ID) REFERENCES Job(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+drop table if exists Country;
 CREATE TABLE Country (
     name VARCHAR(100) PRIMARY KEY,
     population_size INT NOT NULL,
     freedom_index DECIMAL(5,2) NOT NULL
 );
 
+drop table if exists PastEmployee;
 CREATE TABLE PastEmployee (
     ID INT PRIMARY KEY,
     work_years INT NOT NULL,
@@ -63,6 +69,7 @@ CREATE TABLE PastEmployee (
     FOREIGN KEY (company_name) REFERENCES Company(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+drop table if exists Job_PastEmployee;
 CREATE TABLE Job_PastEmployee (
     Job_ID INT,
     PastEmployee_ID INT NOT NULL,
@@ -71,6 +78,7 @@ CREATE TABLE Job_PastEmployee (
     FOREIGN KEY (PastEmployee_ID) REFERENCES PastEmployee(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+drop table if exists Company_Country;
 CREATE TABLE Company_Country (
     Company_Name VARCHAR(100),
     Country_Name VARCHAR(100),
@@ -78,6 +86,8 @@ CREATE TABLE Company_Country (
     FOREIGN KEY (Company_Name) REFERENCES Company(name) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (Country_Name) REFERENCES Country(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+drop table if exists User_Job;
 CREATE TABLE User_Job (
     Job_ID INT,
     username VARCHAR(50),
@@ -88,50 +98,67 @@ CREATE TABLE User_Job (
 );
 
 -- Check if a user exists to send into their account or if it doesnt, then they need to create one    
+DROP FUNCTION IF EXISTS is_returning_user;
 DELIMITER $$
-CREATE PROCEDURE IsReturningUser(
-    IN p_username VARCHAR(50),
-    IN p_password VARCHAR(50)
-)
-BEGIN
+CREATE FUNCTION is_returning_user(p_username varchar(50), p_password varchar(50)) 
+	RETURNS INT
+	deterministic 
+	READS SQL DATA
+	BEGIN
 	declare output int;
     if exists ( select 1 from users as u where u.username = p_username and u.passwrd = p_password) then 
-		set output = -1;
+		set output = 1;
     else
-		signal sqlstate '45000' set message_text = 'This account does not exist. Please go back and create a username and password';
+		set output = -1;
     end if;
     return (output);
     
-END $$
+	END $$
 DELIMITER ;
 
 -- Create a user on the front end means creating a "job seeker" and a "User" on the back end
+DROP PROCEDURE IF EXISTS AddUser;
 DELIMITER $$
 CREATE PROCEDURE AddUser(
     IN p_username VARCHAR(50),
     IN p_password VARCHAR(50),
-    IN SSN int
+    IN p_SSN int,
+    IN p_name VARCHAR(50),
+    IN p_sex CHAR(1),
+    IN p_experience VARCHAR(1000)
 )
 BEGIN
 	declare is_existing_user int;
-    call IsReturningUser(p_username, p_password) into is_existing_user;
+    
+    prepare returning_user from 'IsReturningUser(p_username, p_password) into @is_existing_user';
+    execute returning_user using @is_existing_user;
+    deallocate prepare returning_user;
     
 	if is_existing_user = -1 then 
-		singnal sqlstate '45000' set message_text = 'User already exists. Try another username and password';
+		signal sqlstate '45000' set message_text = 'User already exists. Try another username and password';
 	else
-		INSERT INTO User(username, passwrd)
-		VALUES (p_username, p_password);
+		INSERT INTO User(username, passwrd, SSN)
+		VALUES (p_username, p_password, p_SSN);
+        
+        INSERT INTO jobseeker(SSN, name, sex, experience)
+        VALUES (p_SSN, p_name, p_sex, p_experience); 
 	end if;
+
 END $$
 DELIMITER ;
 
-drop trigger if exists attack_after_insert;
-delimiter $$
-create trigger attack_after_insert
-	after insert on attack
-    for each row 
-    begin
-    update township set num_attacks = num_attacks + 1
-    where tid = new.location;
-    end$$
-delimiter ;
+
+
+-- example code for triggers  
+/*
+-- drop trigger if exists attack_after_insert;
+-- delimiter $$
+-- create trigger attack_after_insert
+-- 	after insert on attack
+--     for each row 
+--     begin
+--     update township set num_attacks = num_attacks + 1
+--     where tid = new.location;
+--     end$$
+-- delimiter ;
+*/
