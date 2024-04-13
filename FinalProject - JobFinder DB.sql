@@ -19,7 +19,6 @@ CREATE TABLE User (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
---  need to add user to job
 
 CREATE TABLE Company (
     name VARCHAR(100) PRIMARY KEY,
@@ -87,3 +86,16 @@ CREATE TABLE User_Job (
     FOREIGN KEY (Job_ID) REFERENCES Job(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (username, passwrd) REFERENCES User(username, passwrd) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+DELIMITER $$
+CREATE PROCEDURE AddUser(
+    IN p_username VARCHAR(50),
+    IN p_password VARCHAR(50),
+    IN p_SSN INT
+)
+BEGIN
+    INSERT INTO User(username, passwrd, SSN)
+    VALUES (p_username, p_password, p_SSN);
+END $$
+DELIMITER ;
