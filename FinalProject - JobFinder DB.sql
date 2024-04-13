@@ -106,7 +106,7 @@ CREATE FUNCTION is_returning_user(p_username varchar(50), p_password varchar(50)
 	READS SQL DATA
 	BEGIN
 	declare output int;
-    if exists ( select 1 from users as u where u.username = p_username and u.passwrd = p_password) then 
+    if exists ( select 1 from user as u where u.username = p_username and u.passwrd = p_password) then 
 		set output = 1;
     else
 		set output = -1;
@@ -125,30 +125,38 @@ CREATE PROCEDURE AddUser(
     IN p_SSN int,
     IN p_name VARCHAR(50),
     IN p_sex CHAR(1),
-    IN p_experience VARCHAR(1000)
+    IN p_experience int
 )
 BEGIN
-	declare is_existing_user int;
+ 	declare is_existing_user int;
     
-    prepare returning_user from 'IsReturningUser(p_username, p_password) into @is_existing_user';
-    execute returning_user using @is_existing_user;
-    deallocate prepare returning_user;
-    
-	if is_existing_user = -1 then 
-		signal sqlstate '45000' set message_text = 'User already exists. Try another username and password';
-	else
-		INSERT INTO User(username, passwrd, SSN)
-		VALUES (p_username, p_password, p_SSN);
-        
-        INSERT INTO jobseeker(SSN, name, sex, experience)
-        VALUES (p_SSN, p_name, p_sex, p_experience); 
-	end if;
+    select is_returning_user(p_username, p_password) into is_existing_user;
 
+	if is_existing_user = 1 then 
+		signal sqlstate '45000' set message_text = 'User already exists. Try another username and password';
+ 	else
+		INSERT INTO jobseeker(SSN, name, sex, experience)
+		VALUES (p_SSN, p_name, p_sex, p_experience); 
+        
+ 		INSERT INTO User(username, passwrd, SSN)
+ 		VALUES (p_username, p_password, p_SSN);
+
+ 	end if;
 END $$
 DELIMITER ;
 
+SELECT is_returning_user('Lucas', 'Kirma');
+SELECT is_returning_user('Lucas', 'Kirma');
+INSERT INTO jobseeker(SSN, name, sex, experience)
+		VALUES ('0000', 'Lucas', 'm', 5);
+INSERT INTO User(username, passwrd, SSN)
+		VALUES ('Lucas', 'Kirma', 0000);
 
-
+call AddUser('Lucas', 'Kirma', 0000, 'LucasKirma', 'Y', 100);
+call AddUser('Jasper', 'Kimbal', 1000, 'LucasKirma', 'Y', 100);
+        
+select * from jobseeker;
+select * from user;
 -- example code for triggers  
 /*
 -- drop trigger if exists attack_after_insert;
