@@ -12,10 +12,6 @@ div { position: absolute; }
 
 #content-container { display: block; position: relative; width: 1440px; width: 1440px; height: 1024px; overflow: hidden; display: block;  margin-left: auto; margin-right: auto;  }
 
-* {
-    box-sizing: border-box;
-}
-
 
 #page_desktop___1_ek1 {
 	top: 0px;
@@ -156,20 +152,31 @@ div { position: absolute; }
 	background:rgba(217,217,217,1);
 }
 
-#sex, #sex_input {
-	display: block;
-}
+
 
 #sex_input {
 	font-size: 30;
-	top: 413px;
-	left: 0px;
+	top: 673px;
+	left: 539px;
 	width: 51px;
 	height: 51px;
 	background:rgba(217,217,217,1);
 	position: absolute;
-	font-size: 30;
+	font-size: 30px;
 }
+
+
+#YOE_input {
+	font-size: 30;
+	top: 673px;
+	left: 622px;
+	width: 70px;
+	height: 51px;
+	background:rgba(217,217,217,1);
+	position: absolute;
+	font-size: 30px;
+}
+
 
 
 #yoe_input {
@@ -241,15 +248,8 @@ div { position: absolute; }
 }
 
 #apply_button {
-	top: 503px;
-	left: 343px;
-	width: 170px;
-	height: 56px;
-}
-
-#_bg__apply_button_ek1 {
-	top: -761px;
-	left: -449px;
+	top: 768px;
+	left: 902px;
 	width: 170px;
 	height: 56px;
 }
@@ -342,7 +342,7 @@ div { position: absolute; }
 #log_in {
 	position: absolute;
 	top: 258px;
-	left: 825px;
+	left: 1235px;
 	width: 506px;
 	height: 559px;
 }
@@ -386,7 +386,7 @@ div { position: absolute; }
 
 
 #password_ek1 {
-	top: 319px;
+	top: 290px;
 	left: 0px;
 	width: 145.6px;
 	height: 38.6px;
@@ -402,7 +402,7 @@ div { position: absolute; }
 
 #password_input {
 	position: absolute;
-	top: 358px;
+	top: 330px;
 	left: 0px;
 	width: 506px;
 	height: 86px;
@@ -455,19 +455,11 @@ div { position: absolute; }
 }
 
 #apply_button_ek2 {
-	top: 503px;
-	left: 335px;
+	top: 508px;
+	left: 355px;
 	width: 170px;
 	height: 56px;
 }
-
-#_bg__apply_button_ek3 {
-	top: -761px;
-	left: -1160px;
-	width: 170px;
-	height: 56px;
-}
-
 
 #rectangle_1_ek1 {
 	top: 0px;
