@@ -1,4 +1,4 @@
-drop database if exists jobfinder;
+ drop database if exists jobfinder;
 create database jobfinder;
 
 use jobfinder;
@@ -145,6 +145,17 @@ BEGIN
 END $$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS find_companies_in_country;
+DELIMITER $$
+CREATE PROCEDURE find_companies_in_country(IN p_country_name varchar(100))
+	BEGIN
+    select c.name, industry, c_rank, revenue, Revenue_Growth from company as c
+    join company_country as cc on c.name = cc.Company_Name
+    join country as cn on cn.name = cc.country_name 
+    where cn.name = p_country_name;
+END$$
+DELIMITER ;	
+    
 SELECT is_returning_user('Lucas', 'Kirma');
 SELECT is_returning_user('Lucas', 'Kirma');
 INSERT INTO jobseeker(SSN, name, sex, experience)
@@ -154,9 +165,51 @@ INSERT INTO User(username, passwrd, SSN)
 
 call AddUser('Lucas', 'Kirma', 0000, 'LucasKirma', 'Y', 100);
 call AddUser('Jasper', 'Kimbal', 1000, 'LucasKirma', 'Y', 100);
+
+-- Create Countries 
+INSERT INTO country(name, population_size, freedom_index)
+		VALUES ('USA', 300000000, 5.5);
+INSERT INTO country(name, population_size, freedom_index)
+		VALUES ('Brazil', 500000000, 4.0);
+INSERT INTO country(name, population_size, freedom_index)
+		VALUES ('China', 1000000000, 2.1); 
+INSERT INTO country(name, population_size, freedom_index)
+		VALUES ('Russia', 200000000, 1.1); 
+
+-- Create Companies 
+INSERT INTO company( name, Industry, C_Rank, Revenue, Revenue_Growth)
+		VALUES ('Apple', 'Tech', 3, 1000000, 10.5);
+INSERT INTO company( name, Industry, C_Rank, Revenue, Revenue_Growth)
+		VALUES ('JasperInc', 'Agriculture', 2, 10000000, 100.5);
+INSERT INTO company( name, Industry, C_Rank, Revenue, Revenue_Growth)
+		VALUES ('LucasInc', 'Commodities', 4, 100000, 9.5);
+INSERT INTO company( name, Industry, C_Rank, Revenue, Revenue_Growth)
+		VALUES ('BrazilTrees', 'Non-Profit', 1, 1001000, 19.5);
+
+-- Create company_country
+INSERT INTO company_country(Company_Name, Country_Name)
+		VALUES ('Apple', 'USA');  
+INSERT INTO company_country(Company_Name, Country_Name)
+		VALUES ('JasperInc', 'Russia');
+INSERT INTO company_country(Company_Name, Country_Name)
+		VALUES ('LucasInc', 'Brazil');
+INSERT INTO company_country(Company_Name, Country_Name)
+		VALUES ('BrazilTrees', 'Brazil');
         
+-- View Tables
 select * from jobseeker;
 select * from user;
+select * from country;
+select * from company;
+select * from company_country;
+
+-- Test Procedures
+call find_companies_in_country('USA');
+call find_companies_in_country('Brazil');
+call find_companies_in_country('Russia');
+call find_companies_in_country('China');
+
+
 -- example code for triggers  
 /*
 -- drop trigger if exists attack_after_insert;
