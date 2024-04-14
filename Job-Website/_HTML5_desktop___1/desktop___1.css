@@ -1,0 +1,507 @@
+/*
+	@name desktop___1
+*/
+/* Only edit this if you know what you are doing! */
+body { margin: 0px; padding: 0px; font-family:"Arial"; overflow-x:hidden; }
+
+/* Only edit this if you know what you are doing! */
+img { position: absolute; display: block; margin: 0px; border: none; padding: 0px; }
+
+/* Only edit this if you know what you are doing! */
+div { position: absolute; }
+
+#content-container { display: block; position: relative; width: 1440px; width: 1440px; height: 1024px; overflow: hidden; display: block;  margin-left: auto; margin-right: auto;  }
+
+* {
+    box-sizing: border-box;
+}
+
+
+#page_desktop___1_ek1 {
+	top: 0px;
+	left: 0px;
+	width: 1440px;
+	height: 1024px;
+}
+
+#_bg__desktop___1_ek2 {
+	top: 0px;
+	left: 0px;
+	width: 1440px;
+	height: 1024px;
+	background:rgba(89.27,196.56,138.63,1);
+}
+
+#top_section {
+	top: 0px;
+	left: -2px;
+	width: 1442px;
+	height: 118px;
+}
+
+#_bg__top_section_ek1 {
+	top: 0px;
+	left: 2px;
+	width: 1442px;
+	height: 118px;
+}
+
+
+#top_row {
+	opacity:0.6700000166893;
+	top: 0px;
+	left: 0px;
+	width: 1440px;
+	height: 118px;
+	-ms-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-o-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-webkit-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-moz-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	background:rgba(31.61,63.75,42.54,0.67);
+}
+
+#nav_bar {
+	top: 6px;
+	left: 25px;
+	width: 1417px;
+	height: 106px;
+}
+
+#_bg__nav_bar_ek1 {
+	top: -6px;
+	left: -23px;
+	width: 1417px;
+	height: 106px;
+}
+
+
+#jobfinder_project {
+	top: 31px;
+	left: 0px;
+	width: 452.6px;
+	height: 54.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 36px;
+	font-weight: bold;
+	line-height: 49.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#companies {
+	top: 0px;
+	left: 897px;
+	width: 221px;
+	height: 115px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 110px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#pastemployees {
+	top: 1px;
+	left: 1137px;
+	width: 303px;
+	height: 114px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 30px;
+	font-weight: bold;
+	line-height: 109px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+#sign_up {
+	position: absolute;
+	top: 258px;
+	left: 106px;
+	width: 513px;
+	height: 559px;
+}
+
+#_bg__sign_up_ek1 {
+	top: -258px;
+	left: -106px;
+	width: 513px;
+	height: 559px;
+}
+
+
+#signup_password_input {
+	position: absolute;
+	font-size: 30;
+	top: 121px;
+	left: 3px;
+	width: 506px;
+	height: 51px;
+}
+
+
+#ssn_input {
+	position: absolute;
+	font-size: 30;
+	top: 316px;
+	left: 3px;
+	width: 506px;
+	height: 51px;
+	background:rgba(217,217,217,1);
+}
+
+#sex, #sex_input {
+	display: block;
+}
+
+#sex_input {
+	font-size: 30;
+	top: 413px;
+	left: 0px;
+	width: 51px;
+	height: 51px;
+	background:rgba(217,217,217,1);
+	position: absolute;
+	font-size: 30;
+}
+
+
+#yoe_input {
+	position: absolute;
+	font-size: 30;
+	top: 413px;
+	left: 82px;
+	width: 73px;
+	height: 51px;
+}
+
+
+#signup_password_input_ek1 {
+	position: absolute;
+	font-size: 30;
+	top: 218px;
+	left: 3px;
+	width: 506px;
+	height: 51px;
+	background:rgba(217,217,217,1);
+}
+
+
+#new_user__sign_up_here {
+	position: absolute;
+	font-size: 30;
+	top: 0px;
+	left: 3px;
+	width: 403.2px;
+	height: 48.2px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 43.2px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#sex {
+	position: absolute;
+	top: 376px;
+	left: 0px;
+	width: 72.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#yoe {
+	top: 376px;
+	left: 92px;
+	width: 74.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+#apply_button {
+	top: 503px;
+	left: 343px;
+	width: 170px;
+	height: 56px;
+}
+
+#_bg__apply_button_ek1 {
+	top: -761px;
+	left: -449px;
+	width: 170px;
+	height: 56px;
+}
+
+
+#rectangle_1 {
+	top: 0px;
+	left: 0px;
+	width: 170px;
+	height: 56px;
+	-ms-border-radius: 50px;
+	-o-border-radius: 50px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	-ms-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-o-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-webkit-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-moz-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	background:rgba(217,217,217,1);
+}
+
+
+#enter {
+	top: 8px;
+	left: 43px;
+	width: 108.2px;
+	height: 48.2px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 43.2px;
+	text-align: left;
+	color:#00220F;
+}
+
+
+#name {
+	position: absolute;
+	font-size: 30;
+	top: 85px;
+	left: 3px;
+	width: 94.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#username {
+	position: absolute;
+	font-size: 30;
+	top: 187px;
+	left: 3px;
+	width: 151.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#password {
+	position: absolute;
+	font-size: 30;
+	top: 280px;
+	left: 3px;
+	width: 145.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+#log_in {
+	position: absolute;
+	top: 258px;
+	left: 825px;
+	width: 506px;
+	height: 559px;
+}
+
+#_bg__log_in_ek1 {
+	top: -258px;
+	left: -825px;
+	width: 506px;
+	height: 559px;
+}
+
+
+#username_ek1 {
+	top: 100px;
+	left: 0px;
+	width: 151.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#returning_user__please_sign_in {
+	top: 0px;
+	left: 0px;
+	width: 503.2px;
+	height: 48.2px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 43.2px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#password_ek1 {
+	top: 319px;
+	left: 0px;
+	width: 145.6px;
+	height: 38.6px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 26px;
+	font-weight: bold;
+	line-height: 33.6px;
+	text-align: left;
+	color:#FFFFFF;
+}
+
+
+#password_input {
+	position: absolute;
+	top: 358px;
+	left: 0px;
+	width: 506px;
+	height: 86px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+
+#username_input {
+	position: absolute;
+	top: 139px;
+	left: 0px;
+	width: 506px;
+	height: 86px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+
+
+#username_input_signup {
+	position: absolute;
+	top: 225px;
+	left: 2px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+
+#name_input_signup {
+	position: absolute;
+	top: 385px;
+	left: 107px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+#password_input_signup {
+	position: absolute;
+	top: 575px;
+	left: 105px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+#apply_button_ek2 {
+	top: 503px;
+	left: 335px;
+	width: 170px;
+	height: 56px;
+}
+
+#_bg__apply_button_ek3 {
+	top: -761px;
+	left: -1160px;
+	width: 170px;
+	height: 56px;
+}
+
+
+#rectangle_1_ek1 {
+	top: 0px;
+	left: 0px;
+	width: 170px;
+	height: 56px;
+	-ms-border-radius: 50px;
+	-o-border-radius: 50px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	-ms-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-o-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-webkit-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	-moz-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
+	background:rgba(217,217,217,1);
+}
+
+
+#enter_ek1 {
+	top: 8px;
+	left: 43px;
+	width: 108.2px;
+	height: 48.2px;
+	overflow: hidden;
+	font-family: Inter;
+	font-size: 32px;
+	font-weight: bold;
+	line-height: 43.2px;
+	text-align: left;
+	color:#00220F;
+}
+
+
+
+/* Add your custom CSS here */
