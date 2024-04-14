@@ -155,6 +155,17 @@ CREATE PROCEDURE find_companies_in_country(IN p_country_name varchar(100))
     where cn.name = p_country_name;
 END$$
 DELIMITER ;	
+
+DROP PROCEDURE IF EXISTS find_companies_within_salary;
+DELIMITER $$
+CREATE PROCEDURE find_companies_within_salary(IN p_min_salary DECIMAL(10,2), IN p_max_salary DECIMAL(10,2))
+	BEGIN
+    select c.name as 'Company Name', j.job_title, j.description, industry, c_rank, revenue, Revenue_Growth from company as c
+    join job as j on j.name = c.name
+    join salary as s on s.ID = j.ID
+    where s.salary_in_usd >= p_min_salary and s.salary_in_usd<=p_max_salary;
+END$$
+DELIMITER ;	
     
 SELECT is_returning_user('Lucas', 'Kirma');
 SELECT is_returning_user('Lucas', 'Kirma');
@@ -196,18 +207,43 @@ INSERT INTO company_country(Company_Name, Country_Name)
 INSERT INTO company_country(Company_Name, Country_Name)
 		VALUES ('BrazilTrees', 'Brazil');
         
+-- Create Jobs
+INSERT INTO job(ID, job_title, job_catalogue, description, work_setting, employment_type, name)
+	values(1, 'Manager', 'xxx', 'Manage trees', 'field', 'on-site', 'BrazilTrees'); 
+INSERT INTO job(ID, job_title, job_catalogue, description, work_setting, employment_type, name)
+	values(2, 'CFO', 'xxx', 'Manage finance department', 'corporate', 'hybrid', 'JasperInc'); 
+INSERT INTO job(ID, job_title, job_catalogue, description, work_setting, employment_type, name)
+	values(3, 'Associate analyst', 'xxx', 'analyze strategy', 'corporate', 'remote', 'LucasInc'); 
+INSERT INTO job(ID, job_title, job_catalogue, description, work_setting, employment_type, name)
+	values(4, 'Developer', 'xxx', 'develop software', 'corporate', 'hybrid', 'Apple'); 
+
+-- Create Salaries 
+INSERT INTO salary(salary_currency, salary_in_usd, ID)
+	values('BRL', 80000, 3);
+INSERT INTO salary(salary_currency, salary_in_usd, ID)
+	values('BRL', 90000, 1);
+INSERT INTO salary(salary_currency, salary_in_usd, ID)
+	values('RUB', 200000, 2);
+INSERT INTO salary(salary_currency, salary_in_usd, ID)
+	values('USD', 160000, 4);
+
+        
 -- View Tables
 select * from jobseeker;
 select * from user;
 select * from country;
 select * from company;
 select * from company_country;
+select * from job;
+select * from salary;
 
 -- Test Procedures
 call find_companies_in_country('USA');
 call find_companies_in_country('Brazil');
 call find_companies_in_country('Russia');
 call find_companies_in_country('China');
+
+call find_companies_within_salary(0, 160000);
 
 
 -- example code for triggers  
