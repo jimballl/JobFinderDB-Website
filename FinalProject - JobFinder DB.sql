@@ -8,7 +8,8 @@ CREATE TABLE JobSeeker (
     SSN INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     sex CHAR(1) NOT NULL,
-    experience INT NOT NULL
+    experience INT NOT NULL,
+	account_num int default 0
 );
 
 drop table if exists User;
@@ -16,6 +17,7 @@ CREATE TABLE User (
     username VARCHAR(50),
     passwrd VARCHAR(50),
     SSN INT NOT NULL,
+    join_date DATE default current_timestamp,
     PRIMARY KEY (username, passwrd),
     FOREIGN KEY (SSN) REFERENCES JobSeeker(SSN) 
     ON DELETE CASCADE ON UPDATE CASCADE
@@ -32,7 +34,7 @@ CREATE TABLE Company (
 
 drop table if exists Job;
 CREATE TABLE Job (
-    ID INT PRIMARY KEY,
+    ID INT PRIMARY KEY auto_increment,
     job_title VARCHAR(100) NOT NULL,
     job_catalogue VARCHAR(100) NOT NULL,
     description VARCHAR(150),
@@ -116,6 +118,25 @@ CREATE FUNCTION is_returning_user(p_username varchar(50), p_password varchar(50)
 	END $$
 DELIMITER ;
 
+-- Check if a jobseeker already exists (useful for if they are creating more than one account)    
+DROP FUNCTION IF EXISTS is_returning_jobseeker;
+DELIMITER $$
+CREATE FUNCTION is_returning_jobseeker(p_SSN int) 
+	RETURNS INT
+	deterministic 
+	READS SQL DATA
+	BEGIN
+	declare output int;
+    if exists ( select 1 from jobseeker as js where js.SSN = p_SSN) then 
+		set output = 1;
+    else
+		set output = -1;
+    end if;
+    return (output);
+    
+	END $$
+DELIMITER ;
+
 -- Create a user on the front end means creating a "job seeker" and a "User" on the back end
 DROP PROCEDURE IF EXISTS AddUser;
 DELIMITER $$
@@ -129,11 +150,16 @@ CREATE PROCEDURE AddUser(
 )
 BEGIN
  	declare is_existing_user int;
+    declare is_existing_jobseeker int;
     
     select is_returning_user(p_username, p_password) into is_existing_user;
+    select is_returning_jobseeker(p_SSN) into is_existing_jobseeker;
 
 	if is_existing_user = 1 then 
 		signal sqlstate '45000' set message_text = 'User already exists. Try another username and password';
+	elseif is_existing_jobseeker = 1 then
+        INSERT INTO User(username, passwrd, SSN)
+ 		VALUES (p_username, p_password, p_SSN);
  	else
 		INSERT INTO jobseeker(SSN, name, sex, experience)
 		VALUES (p_SSN, p_name, p_sex, p_experience); 
@@ -143,6 +169,30 @@ BEGIN
 
  	end if;
 END $$
+DELIMITER ;
+
+-- Delete old accounts after 2 years
+drop event if exists remove_old_users;
+DELIMITER $$
+create event remove_old_users
+on schedule every 1 day
+do
+	delete from user
+    where join_date < date_sub(curdate(), interval 2 year);
+
+DELIMITER ;
+
+-- Increment jobseeker account numbers when they make a new user
+DROP TRIGGER IF EXISTS increment_num_accounts;
+DELIMITER $$
+CREATE TRIGGER increment_num_accounts
+after insert on user
+for each row 
+begin
+	update jobseeker 
+    set account_num = account_num+1
+    where SSN = new.SSN;
+END$$
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS find_companies_in_country;
@@ -174,8 +224,7 @@ INSERT INTO jobseeker(SSN, name, sex, experience)
 INSERT INTO User(username, passwrd, SSN)
 		VALUES ('Lucas', 'Kirma', 0000);
 
-call AddUser('Lucas', 'Kirma', 0000, 'LucasKirma', 'Y', 100);
-call AddUser('Jasper', 'Kimbal', 1000, 'LucasKirma', 'Y', 100);
+
 
 -- Create Countries 
 INSERT INTO country(name, population_size, freedom_index)
@@ -238,6 +287,10 @@ select * from job;
 select * from salary;
 
 -- Test Procedures
+call AddUser('Lucas', 'Kirma', 0000, 'LucasKirma', 'Y', 100);
+call AddUser('Jasper', 'Kimbal', 1000, 'LucasKirma', 'Y', 100);
+call AddUser('Jasperl', 'Kimball', 1000, 'LucasKirma', 'Y', 100);
+
 call find_companies_in_country('USA');
 call find_companies_in_country('Brazil');
 call find_companies_in_country('Russia');
