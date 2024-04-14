@@ -16,30 +16,30 @@ div { position: absolute; }
 #page_desktop___1_ek1 {
 	top: 0px;
 	left: 0px;
-	width: 1440px;
-	height: 1024px;
+	width: 100%;
+	height: 100%;
 }
 
 #_bg__desktop___1_ek2 {
 	top: 0px;
 	left: 0px;
-	width: 1440px;
-	height: 1024px;
+	width: 100%;
+	height: 100%;
 	background:rgba(89.27,196.56,138.63,1);
 }
 
 #top_section {
 	top: 0px;
 	left: -2px;
-	width: 1442px;
-	height: 118px;
+	width: 100%;
+	height: 100%;
 }
 
 #_bg__top_section_ek1 {
 	top: 0px;
 	left: 2px;
-	width: 1442px;
-	height: 118px;
+	width: 100%;
+	height: 100%;
 }
 
 
@@ -47,7 +47,7 @@ div { position: absolute; }
 	opacity:0.6700000166893;
 	top: 0px;
 	left: 0px;
-	width: 1440px;
+	width: 100%;
 	height: 118px;
 	-ms-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
 	-o-box-shadow:0px 4px 4px 1px rgba(0,0,0,0.25);
@@ -89,7 +89,7 @@ div { position: absolute; }
 
 #companies {
 	top: 0px;
-	left: 897px;
+	left: 1687px;
 	width: 221px;
 	height: 115px;
 	overflow: hidden;
@@ -104,7 +104,7 @@ div { position: absolute; }
 
 #pastemployees {
 	top: 1px;
-	left: 1137px;
+	left: 1997px;
 	width: 303px;
 	height: 114px;
 	overflow: hidden;
@@ -117,11 +117,12 @@ div { position: absolute; }
 }
 
 #sign_up {
-	position: absolute;
+	/* position: absolute; */
 	top: 258px;
 	left: 106px;
 	width: 513px;
 	height: 559px;
+    /* transform: translateX(100px); */
 }
 
 #_bg__sign_up_ek1 {
@@ -142,22 +143,12 @@ div { position: absolute; }
 }
 
 
-#ssn_input {
-	position: absolute;
-	font-size: 30;
-	top: 316px;
-	left: 3px;
-	width: 506px;
-	height: 51px;
-	background:rgba(217,217,217,1);
-}
-
 
 
 #sex_input {
 	font-size: 30;
 	top: 673px;
-	left: 539px;
+	left: 105px;
 	width: 51px;
 	height: 51px;
 	background:rgba(217,217,217,1);
@@ -169,7 +160,7 @@ div { position: absolute; }
 #YOE_input {
 	font-size: 30;
 	top: 673px;
-	left: 622px;
+	left: 185px;
 	width: 70px;
 	height: 51px;
 	background:rgba(217,217,217,1);
@@ -249,7 +240,7 @@ div { position: absolute; }
 
 #apply_button {
 	top: 768px;
-	left: 902px;
+	left: 452px;
 	width: 170px;
 	height: 56px;
 }
@@ -342,7 +333,7 @@ div { position: absolute; }
 #log_in {
 	position: absolute;
 	top: 258px;
-	left: 1235px;
+	left: 1655px;
 	width: 506px;
 	height: 559px;
 }
