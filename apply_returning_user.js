@@ -24,13 +24,9 @@ function submitSignIn() {
         return response.json(); // parse the response as JSON
     })
     .then(data => {
-        console.log("data", data.message);
+        console.log("data", data);
         if(!data) return;
-        if(data.result == -1) {
-            alert(data.message)
-        } else if (data.result == 1) {
-            alert(data.message)
-        }
+        alert(data.message);
     })
     .catch((error) => {
         console.log("SignIn Error:", error)
@@ -52,6 +48,8 @@ function submitSignUp() {
     var ssn = Math.floor(Math.random() * 20000)
 
     variables = [username, name, password, sex, years_of_experience];
+    // variables.map(v => v = v.value);
+    console.log(variables);
     // checking if any of the variables are empty
     variables.forEach(v => {
         if (v.value == undefined || v.value.length == 0) {
@@ -65,7 +63,14 @@ function submitSignUp() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({username, password, name, sex, years_of_experience})
+        body: JSON.stringify({
+            username: username.value, 
+            password: password.value, 
+            name: name.value, 
+            ssn: ssn, 
+            sex: sex.value, 
+            years_of_experience: years_of_experience.value
+        })
     })
     .then(response => {
         if(!response.ok){

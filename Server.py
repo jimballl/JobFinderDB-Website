@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 import os
 from flask import Flask, jsonify, request
 from flask import g
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors= CORS(app, origins=["*"])
 
 
 def get_db():
@@ -24,8 +26,6 @@ def home():
     load_dotenv()
     username = os.getenv("DB_USERNAME")
     password_ = os.getenv("DB_PASSWORD")
-    print("username: ", username)
-    print("password: ", password_)
     try:
         connection = pymysql.connect(
             host="localhost",
@@ -52,9 +52,8 @@ def home():
             autocommit=True
         )
 
-        g.db = connection
-        print("connection madee")
-        return "Database connection success"
+        print("connection made")
+        return connection
     except pymysql.Error as e:
         code, msg = e.args
         print("failed to connect to mySQL database", e)
@@ -67,16 +66,25 @@ def index():
 @app.route('/checkUser', methods=['GET'])
 def checkUser():
     print("check user called")
-    username = request.json.get('username')
-    password = request.json.get('password')
+    username = request.args.get('username')
+    password = request.args.get('password')
+    print("username: ", username)
+    print("password: ", password)
     connection = get_db()
     if connection:
+        print("connection: ", connection)
         c1 = connection.cursor()
         # %s used to prevent SQL injection vulnerability
         query = "SELECT is_returning_user(%s,%s)"
         c1.execute(query, (username, password))
         result = c1.fetchone()
-        return jsonify({"message": "checkUser successful", "result": result})
+        # allows us to grab the value associated with the result of the query
+        key = "is_returning_user('{}','{}')".format(username, password)
+        print(key)
+        if result[key] == 1:
+            return jsonify({"message": "login successful :)", "result": True})
+        else:
+            return jsonify({"message": "login unsuccessful :(", "result": False})
     else:
         return jsonify({"message": "Database connection failed"}), 500
     
@@ -91,15 +99,20 @@ def signUpUser():
     yoe = request.json.get('years_of_experience')
 
     connection = get_db()
+    print("connection: ", connection)
     if connection:
         try:
             c2 = connection.cursor()
             query = "CALL AddUser(%s,%s,%s,%s,%s, %s)"
+            print("username: ", username, "password: ", password, "ssn: ", ssn, "name: ", name, "sex: ", sex, "years_of_experience: ", yoe)
             c2.execute(query, (username, password, ssn, name, sex, yoe))
+            print("add user called")
             return jsonify({"message": "Signup successful"})
         except pymysql.Error as e:
+            print("Failed to signup", e)
             return jsonify({"message": "Failed to signup"}), 500
     else:
+        print("Database connection failed")
         return jsonify({"message": "Database connection failed"}), 500
         
     
