@@ -2,6 +2,25 @@
 # Data Science Job Finder Web App
 ## Database project - Replicating Job Seeking Database Using Online Datasets
 
+### To run code
+#### Prerequisites
+
+- Node.js
+- npm
+
+#### Installation
+
+1. Clone this repository: `git clone ...`
+2. Navigate to the project directory: `cd ~/JobFinderDB-Project`
+3. Install the project's dependencies: `npm install`
+
+#### Running the Server
+
+Run the backend by running `node server.js`. You should see the message "Server is running on port 5000" in the console.
+
+Run the frontend by using Live Server on Visual Studio code within `index.html`
+
+
 ### A top-level description of the project.
 Our fellow data science students are looking for post-graduation work. They are struggling to a good fit, but luckily they can become users of a database that tracks open jobs. These jobs are associated with past employees and previous salaries. Users can compare job salaries across companies to see if their expertise matches previous employees’ skill sets or salary expectations. Furthermore, Users will be able to see which companies these jobs belong to, which countries they are in, and where the previous employees lived (there may be hybrid, remote, or in-person) options. 
 
