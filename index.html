@@ -26,19 +26,20 @@
 		<script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
 
 	</head>
-	<body>
-		<div  nameid="Top Row"  id="top_row"  >
-			<div  nameid="JobFinder-Project"  id="jobfinder_project" >
-				Data Science Job Finder
-			</div>
-			<div  nameid="Companies"  id="companies" >
-				Companies 
-			</div>
-			<div  nameid="PastEmployees"  id="pastemployees" >
-				Past Employees
-			</div>
-		</div>
 
+	<body>
+		<div nameid="Top Row" id="top_row">
+			<button nameid="JobFinder-Project" id="jobfinder_project" class="tablink" onclick="openTab('jobfinder_content')">
+				Data Science Job Finder
+			</button>
+			<button nameid="Companies" id="companies" class="tablink" onclick="openTab('companies_content')">
+				Companies 
+			</button>
+			<button nameid="PastEmployees" id="pastemployees" class="tablink" onclick="openTab('pastemployees_content')">
+				Past Employees
+			</button>
+		</div>
+		<div id="jobfinder_content" class="content">		
 			<div id="sign_up"  nameid="Sign-Up"  >
 				<div  nameid="New User? Sign up Here"  id="new_user__sign_up_here" >
 					New User? Sign up Here
@@ -92,7 +93,19 @@
 					</div>
 
 			</div>
-	</body>
+		</div>
 
+		<div id="companies_content" class="company_content">
+			<div nameid="Companies" id="companies" class="tab" onclick="openTab('companies_content')">
+				Companies 
+			</div>
+		</div>
+		<div id="pastemployees_content" class="employee_content">
+			<div nameid="PastEmployees" id="pastemployees" class="tab" onclick="openTab('pastemployees_content')">
+				Past Employees
+			</div>
+		</div>
+	</body>
+	<script src="tab_switching.js"></script>
 	<script src="apply_returning_user.js"></script>
 </html>
