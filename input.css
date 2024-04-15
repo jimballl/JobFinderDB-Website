@@ -1,0 +1,95 @@
+/* sign in */
+#username_input {
+	position: absolute;
+	top: 139px;
+	left: 0px;
+	width: 506px;
+	height: 86px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+
+#password_input {
+	position: absolute;
+	top: 330px;
+	left: 0px;
+	width: 506px;
+	height: 86px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
+/* sign up */
+
+#sign_up {
+	position: absolute;
+	top: 200px;
+	left: 106px;
+	width: 513px;
+	height: 559px;
+
+    /* transform: translateX(100px); */
+}
+
+
+#name_input_signup {
+	position: absolute;
+	top: 325px;
+	left: 106px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+    z-index: 2;
+}
+
+
+
+#username_input_signup {
+	position: absolute;
+	top: 220px;
+	left: 0px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+    z-index: 1;
+}
+
+
+
+
+#password_input_signup {
+	position: absolute;
+	top: 515px;
+	left: 106px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+    z-index: 1;
+}
+
+#sex_input {
+	font-size: 30;
+	top: 613px;
+	left: 106px;
+	width: 51px;
+	height: 51px;
+	background:rgba(217,217,217,1);
+	position: absolute;
+	font-size: 30px;
+}
+
+
+#YOE_input {
+	font-size: 30;
+	top: 613px;
+	left: 185px;
+	width: 70px;
+	height: 51px;
+	background:rgba(217,217,217,1);
+	position: absolute;
+	font-size: 30px;
+}
