@@ -1,4 +1,4 @@
- drop database if exists jobfinder;
+drop database if exists jobfinder;
 create database jobfinder;
 
 use jobfinder;
@@ -12,12 +12,13 @@ CREATE TABLE JobSeeker (
 	account_num int default 0
 );
 
+-- create user table and make sure password length is greater than 4
 drop table if exists User;
 CREATE TABLE User (
     username VARCHAR(50),
-    passwrd VARCHAR(50),
+    passwrd VARCHAR(50) check (char_length(passwrd)>4),
     SSN INT NOT NULL,
-    join_date DATE default current_timestamp,
+    join_date DATE default '2024-04-13',
     PRIMARY KEY (username, passwrd),
     FOREIGN KEY (SSN) REFERENCES JobSeeker(SSN) 
     ON DELETE CASCADE ON UPDATE CASCADE
@@ -182,6 +183,46 @@ do
 
 DELIMITER ;
 
+-- Delete user if you are done with it 
+DROP PROCEDURE IF EXISTS DeleteUser;
+DELIMITER $$
+CREATE PROCEDURE DeleteUser(
+    IN p_username VARCHAR(50),
+    IN p_password VARCHAR(50)
+)
+BEGIN
+	delete from user
+    where username = p_username and passwrd = p_password;
+END $$
+DELIMITER ;
+
+-- Update name a job seeker name on their profile 
+DROP PROCEDURE IF EXISTS UpdateName;
+DELIMITER $$
+CREATE PROCEDURE UpdateName(
+    IN p_new_name VARCHAR(50),
+    IN p_SSN int
+)
+BEGIN
+	update jobseeker
+    set name = p_new_name
+    where p_SSN = SSN;
+END $$
+DELIMITER ;
+
+-- Decrement jobseeker account by one once a user is deleted
+DROP TRIGGER IF EXISTS decrement_num_accounts;
+DELIMITER $$
+CREATE TRIGGER decrement_num_accounts
+after delete on user
+for each row 
+begin
+	update jobseeker 
+    set account_num = account_num-1
+    where SSN = old.SSN;
+END$$
+DELIMITER ;
+
 -- Increment jobseeker account numbers when they make a new user
 DROP TRIGGER IF EXISTS increment_num_accounts;
 DELIMITER $$
@@ -195,6 +236,7 @@ begin
 END$$
 DELIMITER ;
 
+-- Find all the companies within a country
 DROP PROCEDURE IF EXISTS find_companies_in_country;
 DELIMITER $$
 CREATE PROCEDURE find_companies_in_country(IN p_country_name varchar(100))
@@ -206,6 +248,7 @@ CREATE PROCEDURE find_companies_in_country(IN p_country_name varchar(100))
 END$$
 DELIMITER ;	
 
+-- Find companies and their job descriptions within a certain salary range
 DROP PROCEDURE IF EXISTS find_companies_within_salary;
 DELIMITER $$
 CREATE PROCEDURE find_companies_within_salary(IN p_min_salary DECIMAL(10,2), IN p_max_salary DECIMAL(10,2))
@@ -289,7 +332,7 @@ select * from salary;
 -- Test Procedures
 call AddUser('Lucas', 'Kirma', 0000, 'LucasKirma', 'Y', 100);
 call AddUser('Jasper', 'Kimbal', 1000, 'LucasKirma', 'Y', 100);
-call AddUser('Jasperl', 'Kimball', 1000, 'LucasKirma', 'Y', 100);
+call AddUser('Jasperl', 'Kimball', 1000, 'JAsper', 'Y', 100);
 
 call find_companies_in_country('USA');
 call find_companies_in_country('Brazil');
@@ -297,6 +340,10 @@ call find_companies_in_country('Russia');
 call find_companies_in_country('China');
 
 call find_companies_within_salary(0, 160000);
+
+call DeleteUser('Jasperl', 'Kimball');
+
+call UpdateName('Jasper Kimball', 0000);
 
 
 -- example code for triggers  
