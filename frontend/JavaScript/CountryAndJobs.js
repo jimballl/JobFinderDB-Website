@@ -41,9 +41,9 @@ function companyCountryFilter() {
 }
 
 function getCompaniesWithinSalary() {
-    console.log("getCompaniesWithinSalary");
     var minSalary = document.getElementById("min-salary-input").value;
     var maxSalary = document.getElementById("max-salary-input").value;
+    console.log("minSalary: " + minSalary + ", maxSalary: " + maxSalary);
     // checking if minSalary or maxSalary is empty or undefined
     if (minSalary == undefined || maxSalary == undefined ||
             minSalary.length == 0 || maxSalary.length == 0) {
@@ -74,7 +74,7 @@ function getCompaniesWithinSalary() {
         if(!data) return;
         // updating output
         if (data == undefined || data.length == 0) {
-            document.getElementById("company_name_input_salary").innerText = "No companies found within salary range";
+            document.getElementById("company_name_input_salary").innerText = "No jobs found within salary range";
         } else {
             var companyNames = data.map(item => item.job_title + " @ " + item['Company Name']);
             document.getElementById("company_name_input_salary").innerText = companyNames.join(", ");
