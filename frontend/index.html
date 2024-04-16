@@ -96,15 +96,30 @@
 			<div nameid="Country" id="country_ek1">
 				Input Country to Filter Companies By:
 			</div>
-			<input type="text" name="Country-Input" id="country-input" maxlength="35" tabindex="8"/>
-			<div id="apply_button_ek3" nameid="Apply-Button" onclick="submitCountry()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+			<input type="text" placeholder="Country" name="Country-Input" id="country-input" maxlength="35" tabindex="8"/>
+			<div id="apply_button_ek3" nameid="Apply-Button" onclick="companyCountryFilter()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
 				Enter
 			</div>
 			<div id="company_input" nameid="company_input">
-				<p id="company_name_input" tabindex="9" placeholder="Companies will show here"></p>
+				<p id="company_name_input" tabindex="9">(Companies will show here)</p>			</div>
+		</div>
+
+		<div id="salary" nameid="Salary">
+			<div nameid="Salary" id="salary_ek1">
+				Input Salary Range to Filter Jobs By:
+			</div>
+			<input type="text" placeholder="Min Salary" name="Min-Salary-Input" id="min-salary-input" maxlength="9" tabindex="10"/>
+	<input type="text" placeholder="Max Salary" name="Max-Salary-Input" id="max-salary-input" maxlength="8" tabindex="11"/>
+			<div id="apply_button_ek4" nameid="Apply-Button" onclick="getCompaniesWithinSalary()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+				Enter
+			</div>
+			<div id="company_input_salary" nameid="company_input_salary">
+				<p id="company_name_input_salary" tabindex="12">(Jobs will show here)</p>
 			</div>
 		</div>
-	</body>
 
+		
+	</body>
 	<script src="user_authentication.js"></script>
+	<script src="countryandjobs.js"></script>
 </html>

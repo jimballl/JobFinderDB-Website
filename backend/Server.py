@@ -6,6 +6,7 @@ import os
 from flask import Flask, jsonify, request
 from flask import g
 from flask_cors import CORS
+import sqlite3
 
 app = Flask(__name__)
 cors= CORS(app, origins=["*"])
@@ -17,50 +18,46 @@ def get_db():
     print("get_db called")
     return g.db
 
-# Members AIP Route
-@app.route('/members', methods=['GET'])
-def members():
-    return {"members": ["member1", "member2", "member3"]}
 
 def home():
-    load_dotenv()
-    username = os.getenv("DB_USERNAME")
-    password_ = os.getenv("DB_PASSWORD")
-    try:
-        connection = pymysql.connect(
-            host="localhost",
-            user=username,
-            password=password_,
-            cursorclass=pymysql.cursors.DictCursor,
-            autocommit=True
-        )
+  load_dotenv()
+  print("home called")
+  username = os.getenv("DB_USERNAME")
+  password_ = os.getenv("DB_PASSWORD")
 
-        # Create jobfinder database if it doesn't exist
-        try:
-            with connection.cursor() as cursor:
-                cursor.execute("CREATE DATABASE IF NOT EXISTS jobfinder")
-        finally:
-            connection.close()
+  # Connect to MySQL database (assuming successful environment variable retrieval)
+  try:
+    connection = pymysql.connect(
+        host="localhost",
+        user=username,
+        password=password_,
+        database="jobfinder",
+        cursorclass=pymysql.cursors.DictCursor,
+        autocommit=True
+    )
+  except Exception as e:
+    print("Error connecting to MySQL database:", e)
+    return None  # Indicate connection failure
 
-        # Connect to jobfinder database
-        connection = pymysql.connect(
-            host="localhost",
-            user=username,
-            password=password_,
-            database="jobfinder",
-            cursorclass=pymysql.cursors.DictCursor,
-            autocommit=True
-        )
+#   # Execute SQL commands from JobFinderDB.sql (assuming MySQL connection successful)
+#   with open("JobFinderDB.sql", "r") as f:
+#     try:
+#       cursor = connection.cursor()
+#       for line in f:
+#         line = line.strip()
+#         if line and not line.startswith("--"):  # Skip comments
+#           cursor.execute(line)
+#       connection.commit()  # Commit changes after all commands are executed
+#     except pymysql.Error as e:
+#       print("Failed to execute SQL commands:", e)
+  
+  print("connection made")
+  return connection
 
-        print("connection made")
-        return connection
-    except pymysql.Error as e:
-        code, msg = e.args
-        print("failed to connect to mySQL database", e)
-        exit(1)
 
 @app.route('/')
 def index():
+    print("index called")
     return home()
 
 @app.route('/checkUser', methods=['GET'])
@@ -116,6 +113,35 @@ def signUpUser():
         return jsonify({"message": "Database connection failed"}), 500
         
     
+@app.route('/companies_in_country', methods=['GET'])
+def companies_in_country():
+    country_name = request.args.get('country')
+    print(f"Country name: {country_name}")  # print the country name
+    connection = get_db()
+    if connection:
+        with connection.cursor() as cursor:
+            cursor.execute('CALL find_companies_in_country(%s)', [country_name])
+            results = cursor.fetchall()
+            print(f"Results: {results}")  # print the results
+            return jsonify(results)
+    else:
+        print("Database connection failed")  # print an error message
+        return jsonify({"message": "Database connection failed"}), 500
+
+@app.route('/companies_within_salary', methods=['GET'])
+def companies_within_salary():
+    min_salary = request.args.get('min_salary')
+    max_salary = request.args.get('max_salary')
+    connection = get_db()
+    if connection:
+        with connection.cursor() as cursor:
+            cursor.callproc('find_companies_within_salary', [min_salary, max_salary])
+            results = cursor.fetchall()
+            print(results)
+            return jsonify(results)
+    else:
+        return jsonify({"message": "Database connection failed"}), 500
+
 
 @app.teardown_appcontext
 def close_db(e):
