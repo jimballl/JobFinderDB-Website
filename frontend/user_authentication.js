@@ -51,12 +51,11 @@ function submitSignUp() {
     // variables.map(v => v = v.value);
     console.log(variables);
     // checking if any of the variables are empty
-    variables.forEach(v => {
-        if (v.value == undefined || v.value.length == 0) {
-            alert("Missing a field");
-            return;
-        }
-    })
+    let isFieldMissing = variables.some(v => v.value == undefined || v.value.length == 0);
+
+    if (isFieldMissing) {
+        alert("Missing field(s)");
+    }
     // fetching the data to the server in a post command
     fetch('http://localhost:5000/signUp', {
         method: 'Post',

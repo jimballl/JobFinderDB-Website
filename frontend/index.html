@@ -20,8 +20,9 @@
 		<title>desktop___1</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="" >
-		<link rel="StyleSheet" href="styles.css" />
-		<link rel="StyleSheet" href="input.css" />
+		<link rel="StyleSheet" href="css/styles.css" />
+		<link rel="StyleSheet" href="css/input.css" />
+		<link rel="StyleSheet" href="css/countryandjobs.css" />
 		<script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
 
 	</head>
@@ -38,59 +39,72 @@
 			</div>
 		</div>
 
-			<div id="sign_up"  nameid="Sign-Up"  >
-				<div  nameid="New User? Sign up Here"  id="new_user__sign_up_here" >
-					New User? Sign up Here
-				</div>
-				<div  nameid="Name"  id="name" >
-					Name
-				</div>
+		<div id="sign_up"  nameid="Sign-Up"  >
+			<div  nameid="New User? Sign up Here"  id="new_user__sign_up_here" >
+				New User? Sign up Here
+			</div>
+			<div  nameid="Name"  id="name" >
+				Name
+			</div>
 
-				<div  nameid="Username"  id="username" >
+			<div  nameid="Username"  id="username" >
+				Username
+			</div>
+			<div  nameid="Password"  id="password" >
+				Password
+			</div>
+			<div  nameid="Sign-Up"  id="_bg__sign_up_ek1"  ></div>
+		
+			<div  nameid="SEX"  id="sex" >
+				SEX
+			</div>
+			<div  nameid="YOE"  id="yoe" >
+				YOE
+			</div>
+
+			<input type="text"  nameid="signup-username-input"  id="username_input_signup"  maxlength="35", tabindex="1"></div>
+			<input type="text"  nameid="signup-name-input"  id="name_input_signup"  maxlength="35", tabindex="2"></div>
+			<input type="password"  nameid="signup-password-input"  id="password_input_signup" maxlength="35" tabindex="3"></div>
+			<input type="text"  nameid="sex-input"  id="sex_input" maxlength="1" tabindex="4" ></div>
+			<input type="number"  nameid="yoe-input"  id="YOE_input" maxlength="3" tabindex="5"></div>
+
+			
+			<div id="apply_button" nameid="Apply-Button" onclick="submitSignUp()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+				Enter
+			</div>
+		</div>
+
+		<div id="log_in"  nameid="Log-In"  >
+			<div  nameid="Returning User? Please Sign In"  id="returning_user__please_sign_in" >
+				Returning User? Please Sign In
+			</div>
+				<div nameid="Username" id="username_ek1">
 					Username
 				</div>
-				<div  nameid="Password"  id="password" >
+				<div nameid="Password" id="password_ek1">
 					Password
 				</div>
-				<div  nameid="Sign-Up"  id="_bg__sign_up_ek1"  ></div>
-			
-				<div  nameid="SEX"  id="sex" >
-					SEX
-				</div>
-				<div  nameid="YOE"  id="yoe" >
-					YOE
-				</div>
+				<input type="password" name="Password-Input" id="password_input" maxlength="35" tabindex="6"/>
+				<input type="text" name="Username-Input" id="username_input" maxlength="35" tabindex="7"/>
 
-				<input type="text"  nameid="signup-username-input"  id="username_input_signup"  maxlength="35", tabindex="1"></div>
-				<input type="text"  nameid="signup-name-input"  id="name_input_signup"  maxlength="35", tabindex="2"></div>
-				<input type="password"  nameid="signup-password-input"  id="password_input_signup" maxlength="35" tabindex="3"></div>
-				<input type="text"  nameid="sex-input"  id="sex_input" maxlength="1" tabindex="4" ></div>
-				<input type="number"  nameid="yoe-input"  id="YOE_input" maxlength="3" tabindex="5"></div>
-
-				
-				<div id="apply_button" nameid="Apply-Button" onclick="submitSignUp()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+				<div id="apply_button_ek2" nameid="Apply-Button" onclick="submitSignIn()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
 					Enter
 				</div>
+		</div>
+		
+		<div id="country" nameid="Country" >
+			<div nameid="Country" id="country_ek1">
+				Input Country to Filter Companies By:
 			</div>
-
-			<div id="log_in"  nameid="Log-In"  >
-				<div  nameid="Returning User? Please Sign In"  id="returning_user__please_sign_in" >
-					Returning User? Please Sign In
-				</div>
-					<div nameid="Username" id="username_ek1">
-						Username
-					</div>
-					<div nameid="Password" id="password_ek1">
-						Password
-					</div>
-					<input type="password" name="Password-Input" id="password_input" maxlength="35" tabindex="6"/>
-					<input type="text" name="Username-Input" id="username_input" maxlength="35" tabindex="7"/>
-
-					<div id="apply_button_ek2" nameid="Apply-Button" onclick="submitSignIn()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
-						Enter
-					</div>
+			<input type="text" name="Country-Input" id="country-input" maxlength="35" tabindex="8"/>
+			<div id="apply_button_ek3" nameid="Apply-Button" onclick="submitCountry()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+				Enter
 			</div>
+			<div id="company_input" nameid="company_input">
+				<p id="company_name_input" tabindex="9" placeholder="Companies will show here"></p>
+			</div>
+		</div>
 	</body>
 
-	<script src="apply_returning_user.js"></script>
+	<script src="user_authentication.js"></script>
 </html>

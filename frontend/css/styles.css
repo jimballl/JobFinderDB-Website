@@ -10,13 +10,15 @@ body {
 @media screen and (max-width: 600px) {
 	body {
 		background-color: rgba(89.27, 196.56, 138.63, 1);
-		overflow: auto;
 	}
 }
 
 body, html {
 	margin: 0;
 	padding: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
 }
 
 
@@ -356,5 +358,3 @@ body, html {
 }
 
 
-
-/* Add your custom CSS here */

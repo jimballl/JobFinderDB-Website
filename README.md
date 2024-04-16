@@ -20,8 +20,10 @@
 3. In bash run: `pip install -r requirements.txt` (in the root folder)
 4. Create a new file in `/backend` named `.env` and fill in your credentials as follows:
 
+```bash
 `DB_USERNAME=[Insert your MySQL username]`
 `DB_PASSWORD=[Insert your MySQL password]`
+```
 
 #### Running the Server
 
