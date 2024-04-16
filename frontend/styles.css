@@ -9,7 +9,8 @@ body {
 
 @media screen and (max-width: 600px) {
 	body {
-		background-color: rgba(89.27, 196.56, 138.63, 1)
+		background-color: rgba(89.27, 196.56, 138.63, 1);
+		overflow: auto;
 	}
 }
 

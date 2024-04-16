@@ -57,7 +57,7 @@ def home():
     except pymysql.Error as e:
         code, msg = e.args
         print("failed to connect to mySQL database", e)
-        return "Database connection failed"
+        exit(1)
 
 @app.route('/')
 def index():

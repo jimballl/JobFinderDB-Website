@@ -5,20 +5,36 @@
 ### To run code
 #### Prerequisites
 
-- Node.js
-- npm
+- Python3
+- MySQL server up and running on computer
+
+#### MySQL Setup
+
+1. Install MySQL Server if you haven't already. You can download it from the [official MySQL website](https://dev.mysql.com/downloads/mysql/).
+2. Start the MySQL server. The command to do this will depend on your operating system. On Windows, you can start it from the MySQL Installer. On macOS and Linux, you can usually start it with the command `sudo service mysql start`.
 
 #### Installation
 
 1. Clone this repository: `git clone ...`
 2. Navigate to the project directory: `cd ~/JobFinderDB-Project`
-3. Install the project's dependencies: `npm install`
+3. In bash run: `pip install -r requirements.txt` (in the root folder)
+4. Create a new file in `/backend` named `.env` and fill in your credentials as follows:
+
+`DB_USERNAME=[Insert your MySQL username]`
+`DB_PASSWORD=[Insert your MySQL password]`
 
 #### Running the Server
 
-Run the backend by running `node server.js`. You should see the message "Server is running on port 5000" in the console.
+Run the backend by running `python3 backend/server.py`. You should see the message "Server is running on port 5000" in the console.
 
-Run the frontend by using Live Server on Visual Studio code within `index.html`
+#### Running the Frontend
+
+In a seperate terminal, navigate to the frontend directory. Run the following bash command:
+
+`python3 -m http.server`
+
+Then, enter `localhost:8000` into the address bar of your browser.
+
 
 
 ### A top-level description of the project.
