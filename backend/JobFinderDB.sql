@@ -4,8 +4,8 @@ create database jobfinder;
 
 use jobfinder;
 
-drop table if exists JobSeeker;
-CREATE TABLE JobSeeker (
+drop table if exists jobseeker;
+CREATE TABLE jobseeker(
     SSN INT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     sex CHAR(1) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE User (
     SSN INT NOT NULL,
     join_date DATE default '2024-04-13',
     PRIMARY KEY (username, passwrd),
-    FOREIGN KEY (SSN) REFERENCES JobSeeker(SSN) 
+    FOREIGN KEY (SSN) REFERENCES jobseeker(SSN) 
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -34,8 +34,8 @@ CREATE TABLE Company (
     Revenue_Growth DECIMAL(5,2) NOT NULL
 );
 
-drop table if exists Job;
-CREATE TABLE Job (
+drop table if exists job;
+CREATE TABLE job (
     ID INT PRIMARY KEY auto_increment,
     job_title VARCHAR(100) NOT NULL,
     job_catalogue VARCHAR(100) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE Salary (
     salary_currency CHAR(3) NOT NULL,
     salary_in_usd DECIMAL(10,2) NOT NULL,
     ID INT NOT NULL,
-    FOREIGN KEY (ID) REFERENCES Job(ID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (ID) REFERENCES job(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 drop table if exists Country;
@@ -62,8 +62,8 @@ CREATE TABLE Country (
     freedom_index DECIMAL(5,2) NOT NULL
 );
 
-drop table if exists PastEmployee;
-CREATE TABLE PastEmployee (
+drop table if exists past_employee;
+CREATE TABLE past_employee (
     ID INT PRIMARY KEY,
     work_years INT NOT NULL,
     experience INT NOT NULL,
@@ -73,17 +73,17 @@ CREATE TABLE PastEmployee (
     FOREIGN KEY (company_name) REFERENCES Company(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-drop table if exists Job_PastEmployee;
-CREATE TABLE Job_PastEmployee (
-    Job_ID INT,
-    PastEmployee_ID INT NOT NULL,
-    PRIMARY KEY (Job_ID, PastEmployee_ID),
-    FOREIGN KEY (Job_ID) REFERENCES Job(ID) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (PastEmployee_ID) REFERENCES PastEmployee(ID) ON DELETE CASCADE ON UPDATE CASCADE
+drop table if exists job_past_employee;
+CREATE TABLE job_past_employee (
+    job_ID INT,
+    past_employee_ID INT NOT NULL,
+    PRIMARY KEY (job_ID, past_employee_ID),
+    FOREIGN KEY (job_ID) REFERENCES job(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (past_employee_ID) REFERENCES past_employee(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-drop table if exists Company_Country;
-CREATE TABLE Company_Country (
+drop table if exists company_country;
+CREATE TABLE company_country (
     Company_Name VARCHAR(100),
     Country_Name VARCHAR(100),
     PRIMARY KEY (Company_Name, Country_Name),
@@ -91,13 +91,13 @@ CREATE TABLE Company_Country (
     FOREIGN KEY (Country_Name) REFERENCES Country(name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-drop table if exists User_Job;
-CREATE TABLE User_Job (
-    Job_ID INT,
+drop table if exists user_job;
+CREATE TABLE user_job (
+    job_ID INT,
     username VARCHAR(50),
     passwrd VARCHAR(50),
-    PRIMARY KEY (Job_ID, username, passwrd),
-    FOREIGN KEY (Job_ID) REFERENCES Job(ID) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (job_ID, username, passwrd),
+    FOREIGN KEY (job_ID) REFERENCES job(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (username, passwrd) REFERENCES User(username, passwrd) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
@@ -140,9 +140,9 @@ CREATE FUNCTION is_returning_jobseeker(p_SSN int)
 DELIMITER ;
 
 -- Create a user on the front end means creating a "job seeker" and a "User" on the back end
-DROP PROCEDURE IF EXISTS AddUser;
+DROP PROCEDURE IF EXISTS add_user;
 DELIMITER $$
-CREATE PROCEDURE AddUser(
+CREATE PROCEDURE add_user(
     IN p_username VARCHAR(50),
     IN p_password VARCHAR(50),
     IN p_SSN int,
@@ -185,9 +185,9 @@ do
 DELIMITER ;
 
 -- Delete user if you are done with it 
-DROP PROCEDURE IF EXISTS DeleteUser;
+DROP PROCEDURE IF EXISTS delete_user;
 DELIMITER $$
-CREATE PROCEDURE DeleteUser(
+CREATE PROCEDURE delete_user(
     IN p_username VARCHAR(50)
 )
 BEGIN
@@ -197,9 +197,9 @@ END $$
 DELIMITER ;
 
 -- Update a username name of an account 
-DROP PROCEDURE IF EXISTS UpdateUsername;
+DROP PROCEDURE IF EXISTS update_username;
 DELIMITER $$
-CREATE PROCEDURE UpdateUsername(
+CREATE PROCEDURE update_username(
     IN p_new_name VARCHAR(50),
     IN p_old_name VARCHAR(50)
 )
@@ -263,4 +263,81 @@ CREATE PROCEDURE find_companies_within_salary(IN p_min_salary DECIMAL(10,2), IN 
     join salary as s on s.ID = j.ID
     where s.salary_in_usd >= p_min_salary and s.salary_in_usd<=p_max_salary;
 END$$
+DELIMITER ;
+
+
+/* Company Admin Procedures */
+
+-- Create a new job posting and return its ID
+DROP PROCEDURE IF EXISTS create_job;
+DELIMITER $$
+CREATE PROCEDURE create_job(
+    IN p_job_title VARCHAR(100),
+    IN p_job_catalogue VARCHAR(100),
+    IN p_description VARCHAR(150),
+    IN p_work_setting VARCHAR(100),
+    IN p_employment_type VARCHAR(50),
+    IN p_company_name VARCHAR(100),
+    OUT p_job_id INT
+)
+BEGIN
+    INSERT INTO job(job_title, job_catalogue, description, work_setting, employment_type, name)
+    VALUES (p_job_title, p_job_catalogue, p_description, p_work_setting, p_employment_type, p_company_name);
+    
+    -- Get the ID of the newly created job
+    SET p_job_id = LAST_INSERT_ID();
+END $$
+DELIMITER ;
+
+
+-- Delete a job posting
+DROP PROCEDURE IF EXISTS delete_job;
+DELIMITER $$
+CREATE PROCEDURE delete_job(
+    IN p_ID INT
+)
+BEGIN
+    DELETE FROM job WHERE ID = p_ID;
+END $$
+DELIMITER ;
+
+
+-- Find all past employees, their job titles, departments, and salaries for a specific company
+DROP PROCEDURE IF EXISTS get_past_employees_for_company;
+DELIMITER $$
+CREATE PROCEDURE get_past_employees_for_company(IN p_company_name VARCHAR(100))
+BEGIN
+    SELECT E.employee_name, J.job_title, D.department_name, S.salary_in_usd
+    FROM past_employee E
+    INNER JOIN job J ON E.job_id = J.ID
+    INNER JOIN Departments D ON E.department_id = D.department_id
+    INNER JOIN Salary S ON J.ID = S.ID
+    WHERE E.end_date IS NOT NULL AND E.company_name = p_company_name;
+END $$
+DELIMITER ;
+
+-- Prevents the user from updating to the protected ADMIN login
+DROP TRIGGER IF EXISTS before_user_update;
+DELIMITER $$
+CREATE TRIGGER before_user_update
+BEFORE UPDATE ON user
+FOR EACH ROW
+BEGIN
+    IF NEW.username = 'admin' OR NEW.passwrd = 'admin' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot use "admin" as username or password.';
+    END IF;
+END $$
+DELIMITER ;
+
+-- Prevents the user from creating protected ADMIN login
+DROP TRIGGER IF EXISTS before_user_update;
+DELIMITER $$
+CREATE TRIGGER before_user_update
+BEFORE CREATE ON user
+FOR EACH ROW
+BEGIN
+    IF NEW.username = 'admin' OR NEW.passwrd = 'admin' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Cannot use "admin" as username or password.';
+    END IF;
+END $$
 DELIMITER ;

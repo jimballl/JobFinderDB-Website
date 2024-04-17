@@ -1,6 +1,9 @@
 function submitSignIn() {
     var username = document.getElementById("username_input").value;
     var password = document.getElementById("password_input").value;
+    if (username == "admin" && password == "admin") {
+        window.location.href = "./admin.html";
+    }
 
     // checking if username or password is empty or undefinied
     if (username == undefined || password == undefined ||

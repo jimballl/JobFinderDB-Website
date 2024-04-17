@@ -1,0 +1,86 @@
+<!-- 
+/*
+ *	
+ *
+ *	@desc 		
+ *	@file 		homepage.html
+ *	@date 		Saturday 13th of April 2024 10:35:31 PM
+ *	@title 		Page 1
+ *	@author 	Jasper Kimball and Lucas Kirma
+ *	@keywords 	
+ *	@generator 	Export Kit v1.3.figma
+ *	
+ *  To reuse any of the content in this program, please attribute the authors.
+*/
+ -->
+ <!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+     <head>
+         <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+         <title>desktop___1</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta name="description" content="" >
+         <link rel="StyleSheet" href="../CSS/Styles.css" />
+         <link rel="StyleSheet" href="../CSS/CountryAndJobs.css" />
+         <link rel="StyleSheet" href="../CSS/UserProfile.css" />
+         <link rel="StyleSheet" href="../CSS/Admin.css" />
+         <script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
+ 
+     </head>
+     <body>
+         <div  nameid="Top Row"  id="top_row"  >
+             <div  nameid="JobFinder-Project"  id="jobfinder_project" >
+                 Data Science Job Finder ADMIN
+             </div>
+
+            <div id="account-actions">
+                <button id="sign-out-button" onclick="signOut()">Sign Out</button>
+            </div>
+
+            <div id="delete-account" nameid="deleteAccountInput">
+                <div id="delete-job" nameid="deleteJobInput">
+                    Delete Job:
+                </div>
+                <input type="text" placeholder="Job ID" name="Job-ID-Input" class="common-class" maxlength="100" tabindex="17"/>
+                <div id="deleteJob_button" nameid="DeleteJob-Button" onclick="deleteJob()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+                    Delete Job
+                </div>
+            </div>
+
+            <div id="pastEmployees" nameid="past_employee_ek1" >
+                <div nameid="pastEmployees" id="pastEmployees_ek1">
+                    Input Company to Get Past Employees:
+                </div>
+                <input type="text" placeholder="Company" name="Employee-Company-Input" id="country-input" maxlength="35" tabindex="8"/>
+                <div id="apply_button_ek3" nameid="Apply-Button" onclick="getPastEmployees()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+                    Enter
+                </div>
+                <div id="company_input" nameid="company_input">
+                    <p id="past_employee_input" tabindex="9">(Past Employees will be shown here)</p>		
+                </div>
+            </div>
+
+             <div id="job" nameid="jobinput" >
+                <div nameid="CreateJob" id="createJob_ek1">
+                    Input Job Details:
+                </div>
+                <input type="text" placeholder="Job Title" name="Job-Title-Input" class="common-class" maxlength="100" tabindex="10"/>
+                <input type="text" placeholder="Job Catalogue" name="Job-Catalogue-Input" class="common-class" maxlength="100" tabindex="11"/>
+                <input type="text" placeholder="Job Description" name="Job-Description-Input" class="common-class" maxlength="150" tabindex="12"/>
+                <input type="text" placeholder="Work Setting" name="Work-Setting-Input" class="common-class" maxlength="100" tabindex="13"/>
+                <input type="text" placeholder="Employment Type" name="Employment-Type-Input" class="common-class" maxlength="50" tabindex="14"/>
+                <input type="text" placeholder="Company Name" name="Company-Name-Input" class="common-class" maxlength="100" tabindex="15"/>     
+                    <div id="createJob_button" nameid="CreateJob-Button" onclick="createJob()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+                    Create Job
+                </div>
+                <div id="job_creation_status" nameid="job_creation_status">
+                    <p id="job_creation_message" tabindex="16">(ID of job created will show here)</p>
+                </div>
+            </div>
+
+        </div>
+        </body>
+        <script src="../JavaScript/CountryAndJobs.js"></script>
+        <script src="../JavaScript/UserProfile.js"></script>
+        <script src="../JavaScript/AccountManagement.js"></script>
+    </html>

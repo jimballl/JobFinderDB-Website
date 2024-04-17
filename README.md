@@ -6,11 +6,11 @@
 #### Prerequisites
 
 - [Python3](https://www.python.org/downloads/)
-- MySQL server up and running on computer
+- MySQL server up and running on a computer
 
 #### MySQL Setup
 
-1. Install MySQL Server if you haven't already. You can download it from the [official MySQL website](https://dev.mysql.com/downloads/mysql/).
+1. Install MySQL Server if not installed. You can download it from the [official MySQL website](https://dev.mysql.com/downloads/mysql/).
 2. Start the MySQL server. The command to do this will depend on your operating system. On Windows, you can start it from the MySQL Installer. On macOS and Linux, you can usually start it with the command `sudo service mysql start`.
 
 #### Installation
@@ -32,11 +32,15 @@ Run the backend by running `python3 backend/server.py`. You should see the messa
 
 #### Running the Frontend
 
-In a seperate terminal, navigate to the `/frontend/HTML` directory. Run the following bash command:
+In a separate terminal, navigate to the `/frontend/HTML` directory. Run the following bash command:
 
 `python3 -m http.server`
 
 Then, enter `localhost:8000` into the address bar of your browser.
+
+### TO USE ADMIN ACCOUNT (for added functionality):
+username= admin
+password= admin
 
 
 ### A top-level description of the project.

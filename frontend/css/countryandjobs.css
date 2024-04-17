@@ -1,8 +1,6 @@
-body {
-    padding-bottom: 60px;
-}
+
 /* For filtering company by salary */
-#country {
+#country, #job {
 	position: absolute;
     top: 750px;
     left: 100px;
@@ -48,7 +46,7 @@ body {
 
 
 /* For the filtering by Salary */
-#salary {
+#salary, #delete-account {
     position: absolute;
     top: 1100px;
     left: 100px;
@@ -56,14 +54,14 @@ body {
     margin-top: 10px;
     margin-bottom: 20px;
 }
-#salary_ek1, #country_ek1, #account-name-label {
+#salary_ek1, #country_ek1, #createJob_ek1, #account-name-label, #delete-job, #pastEmployees_ek1 {
     position: relative;
     font-size: 50px;
     color: rgb(248, 248, 248);
     font-weight: bold;
 }
 
-#company_input_salary {
+#company_input_salary, #job_creation_status, #company_input {
     border: 1px solid black;
     background-color: transparent;
     width: 1720px; 
@@ -79,10 +77,20 @@ body {
     font-size: 25px;
 }
 
-#min-salary-input, #max-salary-input {
+#min-salary-input, #max-salary-input, .common-class {
     width: 506px;
     height: 46px;
     font-size: x-large;
     background:rgba(217,217,217,1);
     margin-top: 20px;
+}
+
+/* For admin past employees */
+#pastEmployees {
+    position: absolute;
+    top: 450px;
+    left: 100px;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

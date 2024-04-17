@@ -100,7 +100,7 @@ def signUpUser():
     if connection:
         try:
             c2 = connection.cursor()
-            query = "CALL AddUser(%s,%s,%s,%s,%s, %s)"
+            query = "CALL add_user(%s,%s,%s,%s,%s, %s)"
             print("username: ", username, "password: ", password, "ssn: ", ssn, "name: ", name, "sex: ", sex, "years_of_experience: ", yoe)
             c2.execute(query, (username, password, ssn, name, sex, yoe))
             print("add user called")
@@ -150,7 +150,7 @@ def UpdateUsername():
     connection = get_db()
     if connection:
         with connection.cursor() as cursor:
-            cursor.callproc('UpdateUsername', [new_username, username])
+            cursor.callproc('update_username', [new_username, username])
             return jsonify({"message": "Username Updated", "result": True})
     else:
         return jsonify({"message": "Username Change Not Possible", "result": False}), 500
@@ -161,7 +161,7 @@ def deleteUser():
     connection = get_db()
     if connection:
         with connection.cursor() as cursor:
-            cursor.callproc('DeleteUser', [username])
+            cursor.callproc('delete_user', [username])
             return jsonify({"message": "User Deleted", "result": True})
     else:
         return jsonify({"message": "User Deletion Not Possible", "result": False}), 500

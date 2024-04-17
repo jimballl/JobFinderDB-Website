@@ -41,7 +41,7 @@ function submitUsernameChange() {
         }
     })
     .catch((error) => {
-        console.log("Username Change Error:", error)
+        alert("Username Change Error: " + error)
     });
 
     //Clearing original fields
@@ -49,8 +49,11 @@ function submitUsernameChange() {
 }
 
 function signOut() {
-    // Clearing account name display
-    document.getElementById("account-name-display").innerText = "";
+    // Clearing account name display if it exists (non-admin account)
+    var accountNameDisplay = document.getElementById("account-name-display");
+    if (accountNameDisplay) {
+        accountNameDisplay.innerText = "";
+    }
 
     // Redirecting to index.html
     window.location.href = "index.html";
