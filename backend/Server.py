@@ -166,8 +166,46 @@ def deleteUser():
     else:
         return jsonify({"message": "User Deletion Not Possible", "result": False}), 500
 
+@app.route('/past_employees', methods=['GET'])
+def get_past_employees():
+    print("getPastEmployees called")
+    company = request.args.get('company')
+    print("Company: ", company)
+    connection = get_db()
+    if connection:
+        with connection.cursor() as cursor:
+            cursor.execute('CALL get_past_employees(%s)', [company])
+            results = cursor.fetchall()
+            print("Results: ", results)
+            if not results:
+                return jsonify({"message": f"No past employees found for {company}"}), 404
+            return jsonify(results)
+    else:
+        return jsonify({"message": "Database connection failed"}), 500
+
+
+@app.route('/create_job', methods=['POST'])
+def create_job():
+    print("createJob called")
+    job_data = request.get_json()
+    input_names = ["Job-Title-Input", "Job-Catalogue-Input", "Job-Description-Input", "Work-Setting-Input", "Employment-Type-Input", "Company-Name-Input"]
+    job_data = {key: job_data.get(key) for key in input_names}
+    connection = get_db()
+    if connection:
+        try:
+            with connection.cursor() as cursor:
+                cursor.callproc('create_job', list(job_data.values()))
+                job_id = cursor.fetchone()
+                print("Job created with ID: ", job_id)
+                return jsonify({"message": f"Job created with ID: {job_id}", "id": job_id})
+        except pymysql.Error as e:
+            print("Failed to create job", e)
+            return jsonify({"message": "Failed to create job"}), 500
+    else:
+        return jsonify({"message": "Database connection failed"}), 500
+
 @app.teardown_appcontext
-def close_db(e):
+def close_db():
     db = g.pop('db', None)
     if db is not None:
         db.close()

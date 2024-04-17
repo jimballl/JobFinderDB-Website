@@ -46,7 +46,7 @@
 
 
 /* For the filtering by Salary */
-#salary, #delete-account {
+#salary {
     position: absolute;
     top: 1100px;
     left: 100px;
@@ -89,6 +89,15 @@
 #pastEmployees {
     position: absolute;
     top: 450px;
+    left: 100px;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+#delete-account {
+    position: absolute;
+    top: 1300px;
     left: 100px;
     font-size: 30px;
     margin-top: 10px;
