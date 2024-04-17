@@ -32,12 +32,11 @@ Run the backend by running `python3 backend/server.py`. You should see the messa
 
 #### Running the Frontend
 
-In a seperate terminal, navigate to the frontend directory. Run the following bash command:
+In a seperate terminal, navigate to the `/frontend/HTML` directory. Run the following bash command:
 
 `python3 -m http.server`
 
 Then, enter `localhost:8000` into the address bar of your browser.
-
 
 
 ### A top-level description of the project.

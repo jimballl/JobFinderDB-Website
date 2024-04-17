@@ -20,10 +20,9 @@
 		<title>desktop___1</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="" >
-		<link rel="StyleSheet" href="CSS/Styles.css" />
-		<link rel="StyleSheet" href="CSS/UserProfile.css" />
-		<link rel="StyleSheet" href="CSS/CountryAndJobs.css" />
-		<link rel="StyleSheet" href="CSS/UserAuthentication.css" />
+		<link rel="StyleSheet" href="../CSS/Styles.css" />
+		<link rel="StyleSheet" href="../CSS/UserProfile.css" />
+		<link rel="StyleSheet" href="../CSS/UserAuthentication.css" />
 		<script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
 
 	</head>
@@ -52,7 +51,7 @@
 				Username
 			</div>
 			<div  nameid="Password"  id="password" >
-				Password
+				Password (min length 2)
 			</div>
 			<div  nameid="Sign-Up"  id="_bg__sign_up_ek1"  ></div>
 		
@@ -93,35 +92,7 @@
 				</div>
 		</div>
 		
-		<div id="country" nameid="Country" >
-			<div nameid="Country" id="country_ek1">
-				Input Country to Filter Companies By:
-			</div>
-			<input type="text" placeholder="Country" name="Country-Input" id="country-input" maxlength="35" tabindex="8"/>
-			<div id="apply_button_ek3" nameid="Apply-Button" onclick="companyCountryFilter()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
-				Enter
-			</div>
-			<div id="company_input" nameid="company_input">
-				<p id="company_name_input" tabindex="9">(Companies will be shown here)</p>			</div>
-		</div>
 
-		<div id="salary" nameid="Salary">
-			<div nameid="Salary" id="salary_ek1">
-				Input Salary Range to Filter Jobs By:
-			</div>
-			<input type="text" placeholder="Min Salary" name="Min-Salary-Input" id="min-salary-input" maxlength="9" tabindex="10"/>
-	<input type="text" placeholder="Max Salary" name="Max-Salary-Input" id="max-salary-input" maxlength="8" tabindex="11"/>
-			<div id="apply_button_ek4" nameid="Apply-Button" onclick="getCompaniesWithinSalary()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
-				Enter
-			</div>
-			<div id="company_input_salary" nameid="company_input_salary">
-				<p id="company_name_input_salary" tabindex="12">(Jobs will be shown here)</p>
-			</div>
-		</div>
-
-		
 	</body>
-	<script src="JavaScript/countryandjobs.js"></script>
-	<script src="JavaScript/user_authentication.js"></script>
-	<script src="JavaScript/"></script>
+	<script src="../JavaScript/UserAuthentication.js"></script>
 </html>

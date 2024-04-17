@@ -1,0 +1,45 @@
+#account-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 250px;
+    left: 85px;
+}
+
+#sign-out-button {
+    background-color: yellow;
+    color: black;
+    padding: 25px 40px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 30px;
+}
+
+#delete-account-button {
+    background-color: red;
+    color: white;
+    padding: 25px 40px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    font-size: 30px;
+}
+
+#account-name {
+    font-size: 30px;
+    margin-top: 20px;
+    position: absolute;
+    top: 450px;
+    left: 100px;
+}
+
+#account-name-input {
+    margin: 0px;
+    width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}

@@ -126,7 +126,7 @@ def companies_in_country():
             return jsonify(results)
     else:
         print("Database connection failed")  # print an error message
-        return jsonify({"message": "Database connection failed"}), 500
+        return jsonify({"message": "No Companies Found"}), 500
 
 @app.route('/companies_within_salary', methods=['GET'])
 def companies_within_salary():
@@ -140,8 +140,31 @@ def companies_within_salary():
             print(results)
             return jsonify(results)
     else:
-        return jsonify({"message": "Database connection failed"}), 500
+        return jsonify({"message": "No Companies Found"}), 500
 
+@app.route('/UpdateUsername', methods=['POST'])
+def UpdateUsername():
+    username = request.json.get('username')
+    new_username = request.json.get('new_username')
+    print("username: ", username, "new_username: ", new_username)
+    connection = get_db()
+    if connection:
+        with connection.cursor() as cursor:
+            cursor.callproc('UpdateUsername', [new_username, username])
+            return jsonify({"message": "Username Updated", "result": True})
+    else:
+        return jsonify({"message": "Username Change Not Possible", "result": False}), 500
+
+@app.route('/deleteUser', methods=['DELETE'])
+def deleteUser():
+    username = request.json.get('username')
+    connection = get_db()
+    if connection:
+        with connection.cursor() as cursor:
+            cursor.callproc('DeleteUser', [username])
+            return jsonify({"message": "User Deleted", "result": True})
+    else:
+        return jsonify({"message": "User Deletion Not Possible", "result": False}), 500
 
 @app.teardown_appcontext
 def close_db(e):

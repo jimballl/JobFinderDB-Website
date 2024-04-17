@@ -357,4 +357,14 @@ body, html {
 	color:#00220F;
 }
 
+.input_box {
+	position: absolute;
+	top: 220px;
+	left: 0px;
+	width: 506px;
+	height: 46px;
+	background:rgba(217,217,217,1);
+	font-size: 30px;
+}
+
 

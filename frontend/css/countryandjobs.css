@@ -1,19 +1,14 @@
-
+body {
+    padding-bottom: 60px;
+}
 /* For filtering company by salary */
 #country {
 	position: absolute;
-    top: 800px;
+    top: 750px;
     left: 100px;
 	width: 100%;
 }
 
-#country_ek1 {
-	position: relative;
-	/* top: 800px;
-	left: 100px; */
-	font-size: 50px;
-	color:rgba(217,217,217,1);
-}
 
 #country-input {
     position: relative;
@@ -25,7 +20,7 @@
     margin-top: 20px;
 }
 
-#apply_button_ek3 {
+#apply_button_ek3, #apply_button_ek4 {
     display: inline-block;
     position: relative;
     width: 506px;
@@ -59,21 +54,13 @@
     left: 100px;
     font-size: 30px;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
-#salary_ek1 {
+#salary_ek1, #country_ek1, #account-name-label {
     position: relative;
     font-size: 50px;
-    color:rgba(217,217,217,1);
-}
-
-#apply_button_ek4 {
-    display: inline-block;
-    position: relative;
-    width: 506px;
-    height: 86px;
-    background:rgba(217,217,217,1);
-    font-size: 30px;
-    margin-top: 25px;
+    color: rgb(248, 248, 248);
+    font-weight: bold;
 }
 
 #company_input_salary {

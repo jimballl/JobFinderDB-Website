@@ -1,0 +1,86 @@
+<!-- 
+/*
+ *	
+ *
+ *	@desc 		
+ *	@file 		homepage.html
+ *	@date 		Saturday 13th of April 2024 10:35:31 PM
+ *	@title 		Page 1
+ *	@author 	Jasper Kimball and Lucas Kirma
+ *	@keywords 	
+ *	@generator 	Export Kit v1.3.figma
+ *	
+ *  To reuse any of the content in this program, please attribute the authors.
+*/
+ -->
+ <!DOCTYPE html>
+ <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+     <head>
+         <meta http-equiv="content-type" content="text/html" charset="utf-8" />
+         <title>desktop___1</title>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <meta name="description" content="" >
+         <link rel="StyleSheet" href="../CSS/Styles.css" />
+         <link rel="StyleSheet" href="../CSS/CountryAndJobs.css" />
+         <link rel="StyleSheet" href="../CSS/UserAuthentication.css" />
+         <link rel="StyleSheet" href="../CSS/UserProfile.css" />
+         <script src="https://secure.exportkit.com/cdn/js/ek_googlefonts.js?v=6"></script>
+ 
+     </head>
+     <body>
+         <div  nameid="Top Row"  id="top_row"  >
+             <div  nameid="JobFinder-Project"  id="jobfinder_project" >
+                 Data Science Job Finder
+             </div>
+
+            <div id="account-actions">
+                <button id="sign-out-button" onclick="signOut()">Sign Out</button>
+                <button id="delete-account-button">Delete Account</button>
+            </div>
+            
+            <div id="account-name" nameid="Account-Name">
+                <div nameid="Account-Name" id="account-name-label">
+                    Change Account Name:
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <input type="text" placeholder="New Account Name" name="Account-Name-Input" id="account-name-input" maxlength="35" tabindex="13"/>
+                    <div id="apply-button-ek5" nameid="Apply-Button" onclick="submitUsernameChange()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer; margin-left: 10px;">
+                        Enter
+                    </div>
+                </div>
+                <div id="current-account-username" style="font-size:42px; margin-top: 10px;">
+                    Current Account Username: <span id="account-name-display"></span>
+                </div>
+            </div>
+
+             <div id="country" nameid="Country" >
+                <div nameid="Country" id="country_ek1">
+                    Input Country to Filter Companies By:
+                </div>
+                <input type="text" placeholder="Country" name="Country-Input" id="country-input" maxlength="35" tabindex="8"/>
+                <div id="apply_button_ek3" nameid="Apply-Button" onclick="getCompaniesInCountry()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+                    Enter
+                </div>
+                <div id="company_input" nameid="company_input">
+                    <p id="company_name_input" tabindex="9">(Companies will be shown here)</p>			</div>
+            </div>
+    
+            <div id="salary" nameid="Salary">
+                <div nameid="Salary" id="salary_ek1">
+                    Input Salary Range to Filter Jobs By:
+                </div>
+                <input type="number" placeholder="Min Salary" name="Min-Salary-Input" id="min-salary-input" maxlength="9" tabindex="10"/>
+                <input type="number" placeholder="Max Salary" name="Max-Salary-Input" id="max-salary-input" maxlength="8" tabindex="11"/>
+                <div id="apply_button_ek4" nameid="Apply-Button" onclick="getCompaniesWithinSalary()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
+                    Enter
+                </div>
+                <div id="company_input_salary" nameid="company_input_salary">
+                    <p id="company_name_input_salary" tabindex="12">(Jobs will be shown here)</p>
+                </div>
+            </div>
+        </div>
+        </body>
+        <script src="../JavaScript/CountryAndJobs.js"></script>
+        <script src="../JavaScript/UserProfile.js"></script>
+        <script src="../JavaScript/AccountManagement.js"></script>
+    </html>

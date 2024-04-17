@@ -17,7 +17,7 @@ CREATE TABLE JobSeeker (
 drop table if exists User;
 CREATE TABLE User (
     username VARCHAR(50),
-    passwrd VARCHAR(50) check (char_length(passwrd)>4),
+    passwrd VARCHAR(50) check (char_length(passwrd)>2),
     SSN INT NOT NULL,
     join_date DATE default '2024-04-13',
     PRIMARY KEY (username, passwrd),
@@ -188,26 +188,30 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS DeleteUser;
 DELIMITER $$
 CREATE PROCEDURE DeleteUser(
-    IN p_username VARCHAR(50),
-    IN p_password VARCHAR(50)
+    IN p_username VARCHAR(50)
 )
 BEGIN
 	delete from user
-    where username = p_username and passwrd = p_password;
+    where username = p_username;
 END $$
 DELIMITER ;
 
--- Update name a job seeker name on their profile 
-DROP PROCEDURE IF EXISTS UpdateName;
+-- Update a username name of an account 
+DROP PROCEDURE IF EXISTS UpdateUsername;
 DELIMITER $$
-CREATE PROCEDURE UpdateName(
+CREATE PROCEDURE UpdateUsername(
     IN p_new_name VARCHAR(50),
-    IN p_SSN int
+    IN p_old_name VARCHAR(50)
 )
 BEGIN
-	update jobseeker
-    set name = p_new_name
-    where p_SSN = SSN;
+    UPDATE User
+    SET username = p_new_name
+    WHERE username = p_old_name;
+
+    IF ROW_COUNT() = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'No rows updated. The username does not exist or the new username is the same as the old one.';
+    END IF;
 END $$
 DELIMITER ;
 

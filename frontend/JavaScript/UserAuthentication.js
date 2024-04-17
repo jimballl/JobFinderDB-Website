@@ -9,7 +9,7 @@ function submitSignIn() {
         console.log("Missing username or password fields");
         return
     }
-    console.log("Username: " + username);
+    console.log("Username In SignIn: " + username);
     // get command to server with username and password
     fetch(`http://localhost:5000/checkUser?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`, {
         method: 'GET',
@@ -26,7 +26,15 @@ function submitSignIn() {
     .then(data => {
         console.log("data", data);
         if(!data) return;
-        alert(data.message);
+        if(data.result == true){
+            console.log("Sign In Successful!");
+            console.log(username);
+            localStorage.setItem("username", username);
+            window.location.href = "./homepage.html";
+        } else {
+            console.log("Sign In Failed");
+            alert("Sign In Failed");
+        }
     })
     .catch((error) => {
         console.log("SignIn Error:", error)
@@ -35,7 +43,6 @@ function submitSignIn() {
     //Clearing original fields
     document.getElementById("username_input").value = "";
     document.getElementById("password_input").value = "";
-
 }
 
 function submitSignUp() {

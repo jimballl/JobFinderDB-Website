@@ -1,13 +1,6 @@
-function companyCountryFilter() {
+function getCompaniesInCountry() {
     console.log("companyCountryFilter");
     var country = document.getElementById("country-input").value;
-    // checking if username or password is empty or undefinied
-    if (username == undefined || password == undefined ||
-            username.length == 0 || password.length == 0) {
-        alert("Missing username or password fields");
-        console.log("Missing username or password fields");
-        return
-    }
     console.log("Country: " + country);
     // get command to grab companies in a country
     fetch(`http://localhost:5000/companies_in_country?country=${country}`, {
