@@ -205,7 +205,7 @@ def create_job():
         return jsonify({"message": "Database connection failed"}), 500
 
 @app.teardown_appcontext
-def close_db():
+def close_db(error=None):
     db = g.pop('db', None)
     if db is not None:
         db.close()

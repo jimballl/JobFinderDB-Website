@@ -7,40 +7,56 @@
 
 - [Python3](https://www.python.org/downloads/)
 - MySQL server up and running on a computer
+- Optional: [VSCode](https://code.visualstudio.com/download) and [VSCode Live Extension](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 
 #### MySQL Setup
 
 1. Install MySQL Server if not installed. You can download it from the [official MySQL website](https://dev.mysql.com/downloads/mysql/).
 2. Start the MySQL server. The command to do this will depend on your operating system. On Windows, you can start it from the MySQL Installer. On macOS and Linux, you can usually start it with the command `sudo service mysql start`.
 
-#### Installation
+#### Installation (Tested on Windows, but commands should be similar on Linux/Mac)
 
-1. Clone this repository: `git clone ...`
-2. Navigate to the project directory: `cd ~/JobFinderDB-Project`
-3. In bash run: `pip install -r requirements.txt` (in the root folder)
+1. Download or Clone this repository: `git clone ...`
+2. Navigate to the project directory in your terminal: `cd ~/JobFinderDB-Project`
+3. In bash run: `pip3` or `pip install -r requirements.txt` (ignore any errors for now)
 4. Create a new file in `/backend` named `.env` and fill in your credentials as follows:
-5. Run the entire JobFinderDB.sql script within MySQL application
 
 ```bash
-`DB_USERNAME=[Insert your MySQL username]`
-`DB_PASSWORD=[Insert your MySQL password]`
+DB_USERNAME=[Insert your MySQL username]
+DB_PASSWORD=[Insert your MySQL password]
 ```
+example:
+```bash
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+#### Setting up MySQL
+
+Run the entire `backend/JobFinderDB.sql` script within your MySQL application
 
 #### Running the Server
 
-Run the backend by running `python3 backend/server.py`. You should see the message "Server is running on port 5000" in the console.
+Run the backend by running `python3 backend/server.py` or `python backend/server.py`. You should see the message "Server is running on port 5000" in the console.
+
+If you see any missing installation, use pip to install any of them. Examples include (`pip install Flask`, `pip install flask_cors`, `pip install python-dotenv`)
 
 #### Running the Frontend
 
-In a separate terminal, navigate to the `/frontend/HTML` directory. Run the following bash command:
+Navigate to the `frontend/HTML/index.html` and run the Live Server extension in VSCode (bottom right of VSCode).
 
-`python3 -m http.server`
+Alternatively you could try running `python -m http.server` in `frontend/HTML`, but the resulting UI may be off.
 
 Then, enter `localhost:8000` into the address bar of your browser.
 
-### TO USE ADMIN ACCOUNT (for added functionality):
-username= admin
-password= admin
+
+#### To use the website:
+You can either log in on admin (username:`admin`, password: `admin`)... which will give you access to admin CRUD operations.
+
+Or you can sign up with an account (don't forget your username and password)... which will give you standard job seeker CRUD operations.
+
+
+---
 
 
 ### A top-level description of the project.
@@ -57,8 +73,3 @@ Company Entity: This entity represents companies in the real world. The attribut
 
 Past Employee Entity: This entity represents the past employees of the companies. The salary data will be populated with the “Data Science Salary” dataset. The attributes include ID (primary key), work_years, and experience. Each past employee worked in a designated county, providing (1..1) multiplicity with the Country entity. Each past employee had 1 or multiple past jobs, and a job could have 0 or many past employees, establishing a many-to-many (M:M) relationship with the Job entity.
 Country Entity: This entity represents the countries where companies are located and where past employees have worked. The attributes include name (primary key), population size, and freedom index. The data for this entity can be populated from the “Country Population Data” dataset. Each country can have multiple companies and past employees, establishing a zero-to-many (0..*) multiplicity with both the Company and Past Employee entities.
-
-### Databases for Tuple Population:
-Companies: https://www.kaggle.com/datasets/omikumarmakadia2121/100-largest-companies
-Data Science Salary: https://www.kaggle.com/datasets/hummaamqaasim/jobs-in-data
-Country Population Data: https://www.kaggle.com/datasets/tanuprabhu/population-by-country-2020
