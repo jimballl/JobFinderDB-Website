@@ -68,11 +68,12 @@ function deleteAccount() {
     console.log("Username: " + username);
 
     // send DELETE request to server with username
-    fetch(`http://localhost:5000/deleteUser?username=${encodeURIComponent(username)}`, {
+    fetch(`http://localhost:5000/deleteUser`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ username: username }),
     })
     .then(response => {
         if(!response.ok){
