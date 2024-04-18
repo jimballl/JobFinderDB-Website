@@ -37,15 +37,15 @@ Run the entire `backend/JobFinderDB.sql` script within your MySQL application
 
 #### Running the Server
 
-Run the backend by running `python3 backend/Server.py` or `python backend/Server.py`. You should see the message "Server is running on port 5000" in the console.
+Run the backend by running `python3 backend/Server.py` or `python backend/Server.py`. You should see a message similar to "Server is running on port 5000" in the console.
 
 If you see any missing installation, use pip to install any of them. Examples include (`pip install Flask`, `pip install flask_cors`, `pip install python-dotenv`)
 
 #### Running the Frontend
 
-Navigate to the `frontend/HTML/index.html` and run the Live Server extension in VSCode (bottom right of VSCode).
+Navigate to the `frontend/HTML/index.html` and run the Live Server extension in VSCode (bottom right of VSCode). A browser window should automatically pull up under `localhost:5500/frontend/HTML/`. If not, then type it into your browser search bar while Live Server is running.
 
-Alternatively you could try running `python -m http.server` in `frontend/HTML`, but the resulting UI may be off.
+Alternatively, you could try running `python -m http.server` in `frontend/HTML`, but the resulting UI may be off.
 
 Then, enter `localhost:8000` into the address bar of your browser.
 
