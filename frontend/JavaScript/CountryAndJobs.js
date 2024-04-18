@@ -1,3 +1,6 @@
+/* functions calledin User */
+
+// gets all companies in a country
 function getCompaniesInCountry() {
     console.log("companyCountryFilter");
     var country = document.getElementById("country-input").value;
@@ -33,6 +36,7 @@ function getCompaniesInCountry() {
     });
 }
 
+// returns employess in a company that have a salary within the given range
 function getCompaniesWithinSalary() {
     var minSalary = document.getElementById("min-salary-input").value;
     var maxSalary = document.getElementById("max-salary-input").value;
@@ -84,68 +88,3 @@ function getCompaniesWithinSalary() {
     });
 }
 
-function getPastEmployees() {
-    console.log("getPastEmployees");
-    var company = document.getElementById("country-input").value;
-    console.log("Company: " + company);
-    // get command to grab past employees of a company
-    fetch(`http://localhost:5000/past_employees?company=${company}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => {
-        if(!response.ok){
-            throw new Error(`bad response, status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log("data", data);
-        if(!data) return;
-        // updating output
-        if (data == undefined || data.length == 0) {
-            alert("No past employees found for " + company);
-        }
-        console.log("data", data);
-        console.log(document.getElementById("past_employee_input").innerText);
-        var employeeNames = data.map(item => item.name);
-        document.getElementById("past_employee_input").innerText = employeeNames.join(", ");        
-        // clear original fields
-        document.getElementById("country-input").value = "";
-    })
-    .catch((error) => {
-        console.log("past employee filter error:", error)
-    });
-}
-
-function createJob() {
-    console.log("createJob");
-    var inputNames = ["Job-Title-Input", "Job-Catalogue-Input", "Job-Description-Input", "Work-Setting-Input", "Employment-Type-Input", "Company-Name-Input"];
-    var jobData = {};
-
-    inputNames.forEach(function(inputName) {
-        jobData[inputName] = document.querySelector(`input[name="${inputName}"]`).value;
-    });
-
-    fetch('http://localhost:5000/create_job', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(jobData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Job created:', data);
-        document.getElementById("job_creation_message").innerText = "Job created with ID: " + data.id;
-        // clear original fields
-        inputNames.forEach(function(inputName) {
-            document.querySelector(`input[name="${inputName}"]`).value = "";
-        });
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-}

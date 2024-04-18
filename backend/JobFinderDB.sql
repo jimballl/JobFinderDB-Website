@@ -14,8 +14,8 @@ CREATE TABLE jobseeker(
 );
 
 -- create user table and make sure password length is greater than 4
-drop table if exists User;
-CREATE TABLE User (
+drop table if exists user;
+CREATE TABLE user (
     username VARCHAR(50),
     passwrd VARCHAR(50) check (char_length(passwrd)>2),
     SSN INT NOT NULL,
@@ -25,13 +25,13 @@ CREATE TABLE User (
     ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-drop table if exists Company;
-CREATE TABLE Company (
+drop table if exists company;
+CREATE TABLE company (
     name VARCHAR(100) PRIMARY KEY,
-    Industry VARCHAR(100) NOT NULL,
-    C_Rank INT NOT NULL,
-    Revenue DECIMAL(15,2) NOT NULL,
-    Revenue_Growth DECIMAL(5,2) NOT NULL
+    Industry VARCHAR(100),
+    C_Rank INT,
+    Revenue DECIMAL(15,2),
+    Revenue_Growth DECIMAL(5,2)
 );
 
 drop table if exists job;
@@ -47,16 +47,16 @@ CREATE TABLE job (
 );
 
 -- salary is a weak entity and does not have a primary key 
-drop table if exists Salary;
-CREATE TABLE Salary (
+drop table if exists salary;
+CREATE TABLE salary (
     salary_currency CHAR(3) NOT NULL,
     salary_in_usd DECIMAL(10,2) NOT NULL,
     ID INT NOT NULL,
     FOREIGN KEY (ID) REFERENCES job(ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-drop table if exists Country;
-CREATE TABLE Country (
+drop table if exists country;
+CREATE TABLE country (
     name VARCHAR(100) PRIMARY KEY,
     population_size INT NOT NULL,
     freedom_index DECIMAL(5,2) NOT NULL
@@ -277,20 +277,29 @@ CREATE PROCEDURE create_job(
     IN p_description VARCHAR(150),
     IN p_work_setting VARCHAR(100),
     IN p_employment_type VARCHAR(50),
-    IN p_company_name VARCHAR(100),
-    OUT p_job_id INT
+    IN p_company_name VARCHAR(100)
 )
 BEGIN
+    DECLARE v_exists INT;
+
+    -- Check if company exists
+    SELECT COUNT(*) INTO v_exists FROM company WHERE name = p_company_name;
+
+    -- If company doesn't exist, insert it
+    IF v_exists = 0 THEN
+        INSERT INTO company (name) VALUES (p_company_name);
+    END IF;
+
+    -- Now insert the job
     INSERT INTO job(job_title, job_catalogue, description, work_setting, employment_type, name)
     VALUES (p_job_title, p_job_catalogue, p_description, p_work_setting, p_employment_type, p_company_name);
     
     -- Get the ID of the newly created job
-    SET p_job_id = LAST_INSERT_ID();
+    SELECT LAST_INSERT_ID() AS job_id;
 END $$
 DELIMITER ;
 
 
--- Delete a job posting
 DROP PROCEDURE IF EXISTS delete_job;
 DELIMITER $$
 CREATE PROCEDURE delete_job(
@@ -298,21 +307,23 @@ CREATE PROCEDURE delete_job(
 )
 BEGIN
     DELETE FROM job WHERE ID = p_ID;
+    IF ROW_COUNT() = 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No job found with the given ID';
+    END IF;
 END $$
 DELIMITER ;
-
 
 -- Find all past employees, their job titles, departments, and salaries for a specific company
 DROP PROCEDURE IF EXISTS get_past_employees_for_company;
 DELIMITER $$
 CREATE PROCEDURE get_past_employees_for_company(IN p_company_name VARCHAR(100))
 BEGIN
-    SELECT E.employee_name, J.job_title, D.department_name, S.salary_in_usd
-    FROM past_employee E
-    INNER JOIN job J ON E.job_id = J.ID
-    INNER JOIN Departments D ON E.department_id = D.department_id
-    INNER JOIN Salary S ON J.ID = S.ID
-    WHERE E.end_date IS NOT NULL AND E.company_name = p_company_name;
+    SELECT e.ID, j.job_title
+    FROM past_employee e
+    LEFT JOIN job_past_employee jpe ON e.ID = jpe.past_employee_ID
+    LEFT JOIN job j ON j.ID = jpe.job_ID
+    LEFT JOIN salary s ON s.ID = j.ID
+    WHERE e.company_name = p_company_name;
 END $$
 DELIMITER ;
 
@@ -389,7 +400,6 @@ INSERT INTO salary(salary_currency, salary_in_usd, ID)
 INSERT INTO salary(salary_currency, salary_in_usd, ID)
 	values('USD', 160000, 4);
 
-        
 -- View Tables
 select * from jobseeker;
 select * from user;
@@ -398,6 +408,7 @@ select * from company;
 select * from company_country;
 select * from job;
 select * from salary;
+select * from past_employee;
 
 -- Test Procedures
 call add_user('Lucas1', 'Kirma', 0000, 'LucasKirma', 'Y', 100);
@@ -410,3 +421,28 @@ call find_companies_in_country('Russia');
 call find_companies_in_country('China');
 
 call find_companies_within_salary(0, 160000);
+
+-- adding past employees
+INSERT INTO past_employee(ID, work_years, experience, country_name, company_name)
+    values(1, 5, 10, 'Brazil', 'BrazilTrees');
+INSERT INTO past_employee(ID, work_years, experience, country_name, company_name)
+    values(2, 5, 10, 'Russia', 'JasperInc');
+INSERT INTO past_employee(ID, work_years, experience, country_name, company_name)
+    values(3, 8, 10, 'Brazil', 'LucasInc');
+INSERT INTO past_employee(ID, work_years, experience, country_name, company_name)
+    values(4, 5, 10, 'USA', 'Apple');
+INSERT INTO past_employee(ID, work_years, experience, country_name, company_name)
+    values(6, 8, 10, 'USA', 'Apple');
+
+
+CALL get_past_employees_for_company('Apple');
+
+-- associate past employees with jobs and job titles
+INSERT INTO job_past_employee(job_ID, past_employee_ID)
+    values(1, 1);
+INSERT INTO job_past_employee(job_ID, past_employee_ID)
+    values(2, 2);
+INSERT INTO job_past_employee(job_ID, past_employee_ID)
+    values(3, 3);
+INSERT INTO job_past_employee(job_ID, past_employee_ID)
+    values(4, 3);

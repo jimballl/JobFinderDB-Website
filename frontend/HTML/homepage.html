@@ -69,6 +69,7 @@
                 <div nameid="Salary" id="salary_ek1">
                     Input Salary Range to Filter Jobs By:
                 </div>
+                <!-- ensuring we can't input more values than the SQL procedure can handle -->
                 <input type="number" placeholder="Min Salary" name="Min-Salary-Input" id="min-salary-input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="8" tabindex="10"/>
                 <input type="number" placeholder="Max Salary" name="Max-Salary-Input" id="max-salary-input" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="8" tabindex="11"/>
                 <div id="apply_button_ek4" nameid="Apply-Button" onclick="getCompaniesWithinSalary()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">

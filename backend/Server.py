@@ -174,7 +174,7 @@ def get_past_employees():
     connection = get_db()
     if connection:
         with connection.cursor() as cursor:
-            cursor.execute('CALL get_past_employees(%s)', [company])
+            cursor.execute('CALL get_past_employees_for_company(%s)', [company])
             results = cursor.fetchall()
             print("Results: ", results)
             if not results:
@@ -186,21 +186,39 @@ def get_past_employees():
 
 @app.route('/create_job', methods=['POST'])
 def create_job():
-    print("createJob called")
+    print("createJob called Python")
     job_data = request.get_json()
     input_names = ["Job-Title-Input", "Job-Catalogue-Input", "Job-Description-Input", "Work-Setting-Input", "Employment-Type-Input", "Company-Name-Input"]
     job_data = {key: job_data.get(key) for key in input_names}
+    print("Job data: ", job_data)
     connection = get_db()
     if connection:
         try:
             with connection.cursor() as cursor:
                 cursor.callproc('create_job', list(job_data.values()))
-                job_id = cursor.fetchone()
+                result = cursor.fetchone()
+                print("Result: ", result)
+                job_id = result['job_id'] if result else None
                 print("Job created with ID: ", job_id)
                 return jsonify({"message": f"Job created with ID: {job_id}", "id": job_id})
         except pymysql.Error as e:
             print("Failed to create job", e)
             return jsonify({"message": "Failed to create job"}), 500
+    else:
+        return jsonify({"message": "Database connection failed"}), 500
+    
+@app.route('/delete_job/<jobId>', methods=['DELETE'])
+def delete_job(jobId):
+    print(f"deleteJob called with jobId: {jobId}")
+    connection = get_db()
+    if connection:
+        try:
+            with connection.cursor() as cursor:
+                cursor.callproc('delete_job', [jobId])
+                return jsonify({"message": f"Job with ID: {jobId} deleted successfully"})
+        except pymysql.Error as e:
+            print("Failed to delete job", e)
+            return jsonify({"message": "Failed to delete job"}), 500
     else:
         return jsonify({"message": "Database connection failed"}), 500
 

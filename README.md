@@ -12,13 +12,13 @@
 #### MySQL Setup
 
 1. Install MySQL Server if not installed. You can download it from the [official MySQL website](https://dev.mysql.com/downloads/mysql/).
-2. Start the MySQL server. The command to do this will depend on your operating system. On Windows, you can start it from the MySQL Installer. On macOS and Linux, you can usually start it with the command `sudo service mysql start`.
+2. Start the MySQL server. The command or operations to do this will depend on your operating system. On Windows, you can start it from the MySQL Installer. On macOS and Linux, you can usually start it with the command `sudo service mysql start`.
 
 #### Installation (Tested on Windows, but commands should be similar on Linux/Mac)
 
 1. Download or Clone this repository: `git clone ...`
 2. Navigate to the project directory in your terminal: `cd ~/JobFinderDB-Project`
-3. In bash run: `pip3` or `pip install -r requirements.txt` (ignore any errors for now)
+3. In bash run: `pip3 ...` or `pip install -r requirements.txt` (ignore any errors for now)
 4. Create a new file in `/backend` named `.env` and fill in your credentials as follows:
 
 ```bash
@@ -37,7 +37,7 @@ Run the entire `backend/JobFinderDB.sql` script within your MySQL application
 
 #### Running the Server
 
-Run the backend by running `python3 backend/server.py` or `python backend/server.py`. You should see the message "Server is running on port 5000" in the console.
+Run the backend by running `python3 backend/Server.py` or `python backend/Server.py`. You should see the message "Server is running on port 5000" in the console.
 
 If you see any missing installation, use pip to install any of them. Examples include (`pip install Flask`, `pip install flask_cors`, `pip install python-dotenv`)
 

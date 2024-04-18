@@ -42,13 +42,13 @@
                 </div>
                 <input type="text" placeholder="Job ID" name="Job-ID-Input" class="common-class" maxlength="100" tabindex="17"/>
                 <div id="deleteJob_button" nameid="DeleteJob-Button" onclick="deleteJob()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
-                    Delete Job
+                    Enter
                 </div>
             </div>
 
             <div id="pastEmployees" nameid="past_employee_ek1" >
                 <div nameid="pastEmployees" id="pastEmployees_ek1">
-                    Input Company to Get Past Employees:
+                    Input Company to Get Past Employee IDs:
                 </div>
                 <input type="text" placeholder="Company" name="Employee-Company-Input" id="country-input" maxlength="35" tabindex="8"/>
                 <div id="apply_button_ek3" nameid="Apply-Button" onclick="getPastEmployees()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
@@ -61,7 +61,7 @@
 
              <div id="job" nameid="jobinput" >
                 <div nameid="CreateJob" id="createJob_ek1">
-                    Input Job Details:
+                    Input Job Details <small>(if a company doesn't exist, it will be created):</small>
                 </div>
                 <input type="text" placeholder="Job Title" name="Job-Title-Input" class="common-class" maxlength="100" tabindex="10"/>
                 <input type="text" placeholder="Job Catalogue" name="Job-Catalogue-Input" class="common-class" maxlength="100" tabindex="11"/>
@@ -70,7 +70,7 @@
                 <input type="text" placeholder="Employment Type" name="Employment-Type-Input" class="common-class" maxlength="50" tabindex="14"/>
                 <input type="text" placeholder="Company Name" name="Company-Name-Input" class="common-class" maxlength="100" tabindex="15"/>     
                     <div id="createJob_button" nameid="CreateJob-Button" onclick="createJob()" style="width: 150px; height: 50px; background-color: #054607; color: white; text-align: center; line-height: 50px; cursor: pointer;">
-                    Create Job
+                    Enter
                 </div>
                 <div id="job_creation_status" nameid="job_creation_status">
                     <p id="job_creation_message" tabindex="16">(ID of job created will show here)</p>
@@ -80,6 +80,6 @@
         </div>
         </body>
         <script src="../JavaScript/CountryAndJobs.js"></script>
-        <script src="../JavaScript/UserProfile.js"></script>
+        <script src="../JavaScript/AdminAccess.js"></script>
         <script src="../JavaScript/AccountManagement.js"></script>
     </html>
