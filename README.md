@@ -2,6 +2,8 @@
 # Data Science Job Finder Web App
 ## Database project - Replicating Job Seeking Database Using Online Datasets
 
+Watch here for a demonstration of the project: [YouTube Demo](https://www.youtube.com/watch?v=RGikc2mbQAQ&feature=youtu.be)
+
 ### To run code
 #### Prerequisites
 
