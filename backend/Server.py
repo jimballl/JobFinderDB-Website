@@ -38,19 +38,6 @@ def home():
   except Exception as e:
     print("Error connecting to MySQL database:", e)
     return None  # Indicate connection failure
-
-#   # Execute SQL commands from JobFinderDB.sql (assuming MySQL connection successful)
-#   with open("JobFinderDB.sql", "r") as f:
-#     try:
-#       cursor = connection.cursor()
-#       for line in f:
-#         line = line.strip()
-#         if line and not line.startswith("--"):  # Skip comments
-#           cursor.execute(line)
-#       connection.commit()  # Commit changes after all commands are executed
-#     except pymysql.Error as e:
-#       print("Failed to execute SQL commands:", e)
-  
   print("connection made")
   return connection
 
